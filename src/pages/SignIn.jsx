@@ -1,86 +1,84 @@
-import React, { useState, useEffect } from "react";
-// Chakra imports
 import {
+  Flex,
   Box,
-  SimpleGrid,
-  Button,
-  GridItem,
-  Stack,
-  chakra,
   FormControl,
-  HStack,
-  Divider,
-  RadioGroup,
-  Input,
   FormLabel,
-  Text,
-  InputGroup,
-  List,
-  ListItem,
+  Input,
+  Checkbox,
+  Stack,
+  Button,
   Heading,
+  Text,
+  useColorModeValue,
+  useToast,
 } from "@chakra-ui/react";
+import { useState } from "react";
 
-const SignIn = () => {
+import { Link, useNavigate } from "react-router-dom";
+export default function SignIn() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const toast = useToast();
+
+  const handleSubmit = () => {
+    const payload = {
+      email,
+      password,
+    };
+  };
+
   return (
-    <div>
-      <Heading textAlign="center" mt="4" mb="2">
-        Sign in{" "}
-      </Heading>
-      <Box
-        w="30%"
-        m="auto"
-        shadow="base"
-        rounded={[null, "md"]}
-        overflow={{
-          sm: "hidden",
-        }}
+    <>
+      <Flex
+        minH={"90vh"}
+        align={"center"}
+        justify={"center"}
+        bg={useColorModeValue("gray.50", "gray.800")}
       >
-        <Stack
-          px={4}
-          py={5}
-          bg="white"
-          _dark={{
-            bg: "#2D3748",
-          }}
-          spacing={6}
-          p={{
-            sm: 6,
-          }}
-        >
-          <SimpleGrid columns={3} spacing={6}>
-            <Box as={GridItem} colSpan={[3, 2]} m="2">
-              <FormLabel m="2" fontSize="md" fontWeight="bold" isRequired>
-                Email id <span style={{ color: "red" }}>*</span>
-              </FormLabel>
-              <InputGroup m="2">
+        <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
+          <Stack align={"center"}>
+            <Heading fontSize={"4xl"}>Login</Heading>
+          </Stack>
+          <Box
+            rounded={"lg"}
+            bg={useColorModeValue("white", "gray.700")}
+            boxShadow={"lg"}
+            p={8}
+          >
+            <Stack spacing={4}>
+              <FormControl id="email">
+                <FormLabel>Email address</FormLabel>
                 <Input
-                  m="2"
-                  required
-                  type="text"
-                  placeholder="abc"
-                  focusBorderColor="brand.400"
-                  rounded="md"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
-              </InputGroup>
-              <FormLabel m="2" fontSize="md" fontWeight="bold" isRequired>
-                Password<span style={{ color: "red" }}>*</span>
-              </FormLabel>
-              <InputGroup m="2">
+              </FormControl>
+              <FormControl id="password">
+                <FormLabel>Password</FormLabel>
                 <Input
-                  m="2"
-                  required
-                  type="text"
-                  placeholder="abc"
-                  focusBorderColor="brand.400"
-                  rounded="md"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
-              </InputGroup>
-            </Box>
-          </SimpleGrid>
+                <Button
+                  w="100%"
+                  mt="5"
+                  bg={"blue.400"}
+                  color={"white"}
+                  _hover={{
+                    bg: "blue.700",
+                  }}
+                  onClick={handleSubmit}
+                >
+                  Sign in
+                </Button>
+              </FormControl>
+            </Stack>
+          </Box>
         </Stack>
-      </Box>
-    </div>
+      </Flex>
+    </>
   );
-};
-
-export default SignIn;
+}

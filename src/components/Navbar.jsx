@@ -13,6 +13,7 @@ import {
   CloseButton,
   Image,
 } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 import { AiOutlineMenu } from "react-icons/ai";
 
@@ -56,9 +57,15 @@ const Navbar = () => {
                 md: "inline-flex",
               }}
             >
-              <Button variant="ghost">About us</Button>
-              <Button variant="ghost">Sign up</Button>
-              <Button variant="ghost">Sign in</Button>
+              <Link to="/aboutus">
+                <Button variant="ghost">About us </Button>
+              </Link>{" "}
+              <Button variant="ghost">
+                <Link to="signup">Sign up</Link>
+              </Button>{" "}
+              <Button variant="ghost">
+                <Link to="signin">Sign in</Link>
+              </Button>
             </HStack>
 
             <Box
@@ -102,9 +109,15 @@ const Navbar = () => {
                   aria-label="Close menu"
                   onClick={mobileNav.onClose}
                 />
-                <Button variant="ghost">About us</Button>
-                <Button variant="ghost">Sign up</Button>
-                <Button variant="ghost">Sign in</Button>
+                <Link to="/aboutus">
+                  <Button variant="ghost">About us </Button>
+                </Link>{" "}
+                <Button variant="ghost">
+                  <Link to="signup">Sign up</Link>
+                </Button>{" "}
+                <Button variant="ghost">
+                  <Link to="signin">Sign in</Link>
+                </Button>
               </VStack>
             </Box>
           </HStack>

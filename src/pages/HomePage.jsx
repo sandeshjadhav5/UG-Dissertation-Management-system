@@ -13,6 +13,7 @@ import {
   Heading,
 } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
+import Features from "../components/Features";
 import Footer from "../components/Footer";
 
 const HomePage = () => {
@@ -167,7 +168,7 @@ const HomePage = () => {
           </Flex>
         </Box>
       </SimpleGrid>
-      ;
+      <Features />
     </Box>
   );
 };
