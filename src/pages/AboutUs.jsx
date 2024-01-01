@@ -102,7 +102,7 @@ const AboutUs = () => {
                 lineHeight="shorter"
                 letterSpacing="tight"
               >
-                Become a Partner
+                Manage Your Projects
               </chakra.h2>
               <chakra.p
                 mb={6}
@@ -119,8 +119,8 @@ const AboutUs = () => {
                   color: "gray.500",
                 }}
               >
-                Let's put our heads together to build a successful partnership
-                to benefit both your customers and your business.
+                project management system created for college students and
+                teachers
               </chakra.p>
               <Button
                 as="a"
@@ -132,7 +132,7 @@ const AboutUs = () => {
                 colorScheme="brand"
                 size="lg"
               >
-                Become a Partner
+                Manage Your Projects
               </Button>
             </Box>
             <VStack
@@ -141,8 +141,8 @@ const AboutUs = () => {
               spacing={5}
               alignItems="start"
             >
-              <Feature>Email APIs, SMTP Relay, and Webhooks</Feature>
-              <Feature>Suppression Management</Feature>
+              <Feature>Add Projects</Feature>
+              <Feature>Project Management</Feature>
               <Feature>Email Tracking and Analytics</Feature>
               <Feature>99.99% Guaranteed Uptime SLA</Feature>
               <Feature>5 Days of Log Retention</Feature>
