@@ -146,13 +146,6 @@ const AboutUs = () => {
               <Feature>Track your projects with ease</Feature>
               <Feature>Add Notifications</Feature>
               <Feature>Add Reviews</Feature>
-              <Feature>Limited 24/7 Ticket Support</Feature>
-              <Feature>1 Dedicated IP (Foundation 100k and up)</Feature>
-              <Feature>1,000 Email Address Validations</Feature>
-              <Feature>
-                Host events together or get your event sponsored
-              </Feature>
-              <Feature>Reach 90,000 customers via our integration page</Feature>
             </VStack>
           </SimpleGrid>
         </Box>
