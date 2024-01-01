@@ -143,9 +143,9 @@ const AboutUs = () => {
             >
               <Feature>Add Projects</Feature>
               <Feature>Project Management</Feature>
-              <Feature>Email Tracking and Analytics</Feature>
-              <Feature>99.99% Guaranteed Uptime SLA</Feature>
-              <Feature>5 Days of Log Retention</Feature>
+              <Feature>Track your projects with ease</Feature>
+              <Feature>Add Notifications</Feature>
+              <Feature>Add Reviews</Feature>
               <Feature>Limited 24/7 Ticket Support</Feature>
               <Feature>1 Dedicated IP (Foundation 100k and up)</Feature>
               <Feature>1,000 Email Address Validations</Feature>
