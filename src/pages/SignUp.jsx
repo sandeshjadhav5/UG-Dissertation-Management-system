@@ -11,6 +11,7 @@ import {
   Text,
   useColorModeValue,
   useToast,
+  Select,
 } from "@chakra-ui/react";
 import { useState } from "react";
 
@@ -20,6 +21,7 @@ export default function SignUp() {
   const [mobileNumber, setMobileNumber] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
   const navigate = useNavigate();
   const toast = useToast();
 
@@ -40,7 +42,7 @@ export default function SignUp() {
       >
         <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
           <Stack align={"center"}>
-            <Heading fontSize={"4xl"}>Login</Heading>
+            <Heading fontSize={"4xl"}>Sign Up</Heading>
           </Stack>
           <Box
             rounded={"lg"}
@@ -49,6 +51,10 @@ export default function SignUp() {
             p={8}
           >
             <Stack spacing={4}>
+              <FormControl id="name">
+                <FormLabel>Name</FormLabel>
+                <Input type="text" onChange={(e) => setName(e.target.value)} />
+              </FormControl>
               <FormControl id="email">
                 <FormLabel>Email address</FormLabel>
                 <Input
@@ -56,6 +62,21 @@ export default function SignUp() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
+              </FormControl>
+              <FormControl id="mobileNumber">
+                <FormLabel>Mobile Number</FormLabel>
+                <Input
+                  type="number"
+                  onChange={(e) => setMobileNumber(e.target.value)}
+                />
+              </FormControl>
+              <FormControl id="mobileNumber">
+                <FormLabel>Select Your Role</FormLabel>
+                <Select onChange={(e) => setMobileNumber(e.target.value)}>
+                  <option value="">Select Your Role</option>
+                  <option value="guide">Project Guide</option>
+                  <option value="student">Student</option>
+                </Select>
               </FormControl>
               <FormControl id="password">
                 <FormLabel>Password</FormLabel>
