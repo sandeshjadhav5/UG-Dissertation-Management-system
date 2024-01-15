@@ -30,6 +30,9 @@ export default function SignUp() {
       email,
       password,
     };
+    if (payload) {
+      console.log("payload is", payload);
+    }
   };
 
   return (
