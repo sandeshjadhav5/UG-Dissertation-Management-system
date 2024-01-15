@@ -26,6 +26,9 @@ export default function SignIn() {
       email,
       password,
     };
+    if (payload) {
+      console.log("payload", payload);
+    }
   };
 
   return (
