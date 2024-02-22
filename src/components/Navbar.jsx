@@ -14,11 +14,15 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineMenu } from "react-icons/ai";
 
 const Navbar = () => {
   const mobileNav = useDisclosure();
+
+  const isAuth = localStorage.getItem("isAuth") || null;
+
+  const handleLogout = () => {};
   return (
     <React.Fragment>
       <Image src="https://kbpcoes.edu.in/images/header/logo-wide.jpg" />
@@ -60,12 +64,25 @@ const Navbar = () => {
               <Link to="/aboutus">
                 <Button variant="ghost">About us </Button>
               </Link>{" "}
-              <Button variant="ghost">
-                <Link to="signup">Sign up</Link>
-              </Button>{" "}
-              <Button variant="ghost">
-                <Link to="signin">Sign in</Link>
-              </Button>
+              {isAuth ? (
+                <>
+                  <Button variant="ghost">
+                    <Link to="dashboard">Dashboard</Link>
+                  </Button>{" "}
+                  <Button onClick={handleLogout} variant="ghost">
+                    Logout
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button variant="ghost">
+                    <Link to="signup">Sign up</Link>
+                  </Button>{" "}
+                  <Button variant="ghost">
+                    <Link to="signin">Sign in</Link>
+                  </Button>
+                </>
+              )}
             </HStack>
 
             <Box
@@ -112,12 +129,20 @@ const Navbar = () => {
                 <Link to="/aboutus">
                   <Button variant="ghost">About us </Button>
                 </Link>{" "}
-                <Button variant="ghost">
-                  <Link to="signup">Sign up</Link>
-                </Button>{" "}
-                <Button variant="ghost">
-                  <Link to="signin">Sign in</Link>
-                </Button>
+                {isAuth ? (
+                  <Button variant="ghost">
+                    <Link to="dashboard">Dashboard</Link>
+                  </Button>
+                ) : (
+                  <>
+                    <Button variant="ghost">
+                      <Link to="signup">Sign up</Link>
+                    </Button>{" "}
+                    <Button variant="ghost">
+                      <Link to="signin">Sign in</Link>
+                    </Button>
+                  </>
+                )}
               </VStack>
             </Box>
           </HStack>

@@ -3,6 +3,7 @@ import HomePage from "./HomePage";
 import SignIn from "./SignIn";
 import AboutUs from "./AboutUs";
 import SignUp from "./SignUp";
+import Dashboard from "./Dashboard";
 
 function MainRoutes() {
   return (
@@ -12,6 +13,7 @@ function MainRoutes() {
       <Route path="/signup" element={<SignUp />} />
       <Route path="/aboutus" element={<AboutUs />} />
       <Route path="/contactus" element={<SignIn />} />
+      <Route path="/dashboard" element={<Dashboard />} />
     </Routes>
   );
 }

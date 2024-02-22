@@ -22,6 +22,8 @@ export default function SignIn() {
   const navigate = useNavigate();
   const toast = useToast();
 
+  const isAuth = localStorage.getItem("isAuth") || null;
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const payload = {
@@ -64,6 +66,10 @@ export default function SignIn() {
       setLoading(false);
     }
   };
+
+  if (isAuth === "true") {
+    navigate("/dashboard");
+  }
 
   return (
     <>
