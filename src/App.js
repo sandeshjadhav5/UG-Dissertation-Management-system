@@ -5,7 +5,6 @@ import { Box } from "@chakra-ui/react";
 function App() {
   return (
     <Box bg="#edf3f8">
-      <Navbar />
       <MainRoutes />
     </Box>
   );

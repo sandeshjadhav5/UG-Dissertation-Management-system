@@ -12,9 +12,10 @@ import {
   useColorModeValue,
   useToast,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import Navbar from "../components/Navbar";
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,6 +26,7 @@ export default function SignIn() {
   const isAuth = localStorage.getItem("isAuth") || null;
 
   const handleSubmit = (e) => {
+    console.log("function invoked");
     e.preventDefault();
     const payload = {
       email,
@@ -47,6 +49,7 @@ export default function SignIn() {
       if (response.status == 201) {
         console.log("success", response);
         localStorage.setItem("access_token", response.data.token);
+        localStorage.setItem("userId", response.data.userId);
         localStorage.setItem("isAuth", true);
         toast({
           title: `Logged in Successfully`,
@@ -67,12 +70,16 @@ export default function SignIn() {
     }
   };
 
-  if (isAuth === "true") {
-    navigate("/dashboard");
-  }
+  useEffect(() => {
+    if (isAuth === "true") {
+      navigate("/dashboard");
+    }
+  }, [isAuth]);
 
   return (
     <>
+      {" "}
+      <Navbar />
       <Flex
         minH={"90vh"}
         align={"center"}

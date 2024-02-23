@@ -9,7 +9,7 @@ import {
   VStack,
   Heading,
 } from "@chakra-ui/react";
-
+import Navbar from "../components/Navbar";
 const AboutUs = () => {
   const Feature = (props) => {
     return (
@@ -45,30 +45,18 @@ const AboutUs = () => {
 
   return (
     <>
-      {" "}
+      <Navbar />{" "}
       <Heading textAlign="center" m="4">
         About Us
       </Heading>{" "}
       <Flex
         bg="#edf3f8"
-        _dark={{
-          bg: "#3e3e3e",
-        }}
         p={20}
         w="auto"
         justifyContent="center"
         alignItems="center"
       >
-        <Box
-          shadow="xl"
-          bg="white"
-          _dark={{
-            bg: "gray.800",
-          }}
-          px={8}
-          py={20}
-          mx="auto"
-        >
+        <Box shadow="xl" bg="white" px={8} py={20} mx="auto">
           <SimpleGrid
             alignItems="center"
             columns={{
@@ -115,9 +103,6 @@ const AboutUs = () => {
                   sm: "left",
                 }}
                 color="gray.600"
-                _dark={{
-                  color: "gray.500",
-                }}
               >
                 project management system created for college students and
                 teachers

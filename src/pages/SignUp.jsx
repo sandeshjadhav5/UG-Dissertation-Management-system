@@ -14,6 +14,7 @@ import {
   Select,
 } from "@chakra-ui/react";
 import axios from "axios";
+import Navbar from "../components/Navbar";
 
 import { useState } from "react";
 import http from "../configs/http";
@@ -74,6 +75,7 @@ export default function SignUp() {
 
   return (
     <>
+      <Navbar />
       <Flex
         minH={"90vh"}
         align={"center"}

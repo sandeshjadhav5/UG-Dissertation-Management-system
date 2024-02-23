@@ -12,17 +12,28 @@ import {
   IconButton,
   CloseButton,
   Image,
+  useToast,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+
 import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineMenu } from "react-icons/ai";
 
 const Navbar = () => {
   const mobileNav = useDisclosure();
-
+  const toast = useToast();
+  const navigate = useNavigate();
   const isAuth = localStorage.getItem("isAuth") || null;
 
-  const handleLogout = () => {};
+  const handleLogout = () => {
+    toast({
+      title: `Logging Out`,
+      status: "error",
+      isClosable: true,
+    });
+    localStorage.removeItem(["isAuth"]);
+    navigate("/signin");
+    window.location.reload();
+  };
   return (
     <React.Fragment>
       <Image src="https://kbpcoes.edu.in/images/header/logo-wide.jpg" />
@@ -48,7 +59,7 @@ const Navbar = () => {
               <VisuallyHidden>Choc</VisuallyHidden>
             </chakra.a>
             <chakra.h1 fontSize="xl" fontWeight="medium" ml="2">
-              UG Dissertation Management System
+              <Link to="/">UG Dissertation Management System</Link>
             </chakra.h1>
           </Flex>
           <HStack display="flex" alignItems="center" spacing={1}>
@@ -67,7 +78,7 @@ const Navbar = () => {
               {isAuth ? (
                 <>
                   <Button variant="ghost">
-                    <Link to="dashboard">Dashboard</Link>
+                    <Link to="/dashboard">Dashboard</Link>
                   </Button>{" "}
                   <Button onClick={handleLogout} variant="ghost">
                     Logout
@@ -76,10 +87,10 @@ const Navbar = () => {
               ) : (
                 <>
                   <Button variant="ghost">
-                    <Link to="signup">Sign up</Link>
+                    <Link to="/signup">Sign up</Link>
                   </Button>{" "}
                   <Button variant="ghost">
-                    <Link to="signin">Sign in</Link>
+                    <Link to="/signin">Sign in</Link>
                   </Button>
                 </>
               )}
@@ -131,15 +142,15 @@ const Navbar = () => {
                 </Link>{" "}
                 {isAuth ? (
                   <Button variant="ghost">
-                    <Link to="dashboard">Dashboard</Link>
+                    <Link to="/dashboard">Dashboard</Link>
                   </Button>
                 ) : (
                   <>
                     <Button variant="ghost">
-                      <Link to="signup">Sign up</Link>
+                      <Link to="/signup">Sign up</Link>
                     </Button>{" "}
                     <Button variant="ghost">
-                      <Link to="signin">Sign in</Link>
+                      <Link to="/signin">Sign in</Link>
                     </Button>
                   </>
                 )}
