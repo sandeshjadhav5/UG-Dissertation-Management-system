@@ -22,7 +22,7 @@ const Navbar = () => {
   const mobileNav = useDisclosure();
   const toast = useToast();
   const navigate = useNavigate();
-  const isAuth = localStorage.getItem("isAuth") || null;
+  const isAuth = localStorage.getItem("isAuth") || false;
 
   const handleLogout = () => {
     toast({
@@ -75,7 +75,7 @@ const Navbar = () => {
               <Link to="/aboutus">
                 <Button variant="ghost">About us </Button>
               </Link>{" "}
-              {isAuth ? (
+              {isAuth === "true" ? (
                 <>
                   <Button variant="ghost">
                     <Link to="/dashboard">Dashboard</Link>

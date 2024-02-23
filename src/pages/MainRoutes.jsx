@@ -7,6 +7,10 @@ import Dashboard from "./Dashboard";
 import Queries from "./Queries";
 import EditData from "./EditData";
 import YourGuide from "./YourGuide";
+import GuideLogin from "./GuideLogin";
+import GuideDashboard from "./GuideDashboard";
+import GuideStudents from "./GuideStudents";
+import GuideTasks from "./GuideTasks";
 
 function MainRoutes() {
   return (
@@ -19,7 +23,11 @@ function MainRoutes() {
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/submitquery" element={<Queries />} />
       <Route path="/editdata" element={<EditData />} />
-      <Route path="yourguide" element={<YourGuide />} />
+      <Route path="/yourguide" element={<YourGuide />} />
+      <Route path="/guidelogin" element={<GuideLogin />} />
+      <Route path="/guidedashboard" element={<GuideDashboard />} />
+      <Route path="/guidestudents" element={<GuideStudents />} />
+      <Route path="/guidetasks" element={<GuideTasks />} />
     </Routes>
   );
 }

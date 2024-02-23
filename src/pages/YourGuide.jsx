@@ -392,6 +392,7 @@ const YourGuide = () => {
                     p="2"
                     w="100%"
                     mt="5"
+                    fontWeight="bold"
                     bg={"green.400"}
                     color={"white"}
                     _hover={{
