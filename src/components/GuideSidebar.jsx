@@ -1,5 +1,5 @@
 import { Image, useDisclosure } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   useColorModeValue,
   Flex,
@@ -121,14 +121,20 @@ const GuideSidebar = () => {
           {" "}
           <Link to="/guidetasks">Create Tasks</Link>
         </NavItem>
-        <NavItem icon={FaHandsHelping}>
-          {" "}
-          <Link to="/">Logout</Link>
+        <NavItem onClick={handleGuideLogout} icon={FaHandsHelping}>
+          Logout
         </NavItem>
       </Flex>
     </Box>
   );
+  const navigate = useNavigate();
 
+  const handleGuideLogout = () => {
+    localStorage.removeItem("isAuthGuide");
+    localStorage.removeItem("guideId");
+    // Redirect to the guide login page
+    navigate("/guidelogin");
+  };
   return (
     <Box
       as="section"

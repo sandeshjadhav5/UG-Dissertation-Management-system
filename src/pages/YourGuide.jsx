@@ -68,7 +68,7 @@ const YourGuide = () => {
       (guide) => guide.name === selectedGuideName
     );
 
-    const selectedGuideId = selectedGuideObject._id;
+    const selectedGuideId = selectedGuideObject?._id;
     //console.log("selectedGuideId is", selectedGuideId);
 
     let payload = {
