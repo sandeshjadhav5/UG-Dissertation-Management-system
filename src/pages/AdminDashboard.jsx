@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import GuideSidebar from "../components/GuideSidebar";
+import AdminSidebar from "../components/AdminSidebar";
 import http from "../configs/http";
 import {
   Box,
@@ -32,12 +32,12 @@ import Navbar from "../components/Navbar";
 
 const AdminDashboard = () => {
   const [profileData, setProfileData] = useState([]);
-  const guideId = localStorage.getItem("guideId") || null;
-  const guideProfileData = async () => {
+  const AdminId = localStorage.getItem("AdminId") || null;
+  const AdminProfileDat = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/guide/profile/${guideId}`
-      );
+        `http://localhost:8000/Admin/profile/$AdminId}`
+    );
       console.log("profile data", response);
 
       if (response.status == 201) {
@@ -49,7 +49,7 @@ const AdminDashboard = () => {
   };
 
   useEffect(() => {
-    guideProfileData();
+    AdminProfileDat();
   }, []);
   return (
     <div>
@@ -57,8 +57,7 @@ const AdminDashboard = () => {
         {/* ------------------------------------------ SIDEBAR DIV ------------------------------------------ */}
         <Box>
           {" "}
-          <GuideSidebar />
-        </Box>
+          <AdminSidebar />        </Box>
         {/* --------------------------------------MAIN CONTENT GOES HERE------------------------------------- */}
         <Box
           minH="100vh"
@@ -71,7 +70,7 @@ const AdminDashboard = () => {
         >
           <Box bg="#EBDEF0">
             <Text fontSize="lg" p="4" textAlign={"left"}>
-              Welcome to Guide Dashboard,{" "}
+           Admin Dashboard
               <Text color="green.600" fontWeight="bold">
                 {" "}
                 {profileData?.name}
@@ -92,7 +91,7 @@ const AdminDashboard = () => {
                     width="full"
                   >
                     <VStack align="start" spacing={6}>
-                      {/* Guide DETAILS */}
+                      {/* {/* Admin DETAILS *} */}
                       <Flex
                         direction={{ base: "column", md: "row" }}
                         align="start"
@@ -102,8 +101,8 @@ const AdminDashboard = () => {
                         <Box mb={{ base: 4, md: 0 }}>
                           {" "}
                           <Text fontSize="md" fontWeight="small">
-                            Guide Name
-                          </Text>
+                            Admin Name
+                         </Text>
                           <Text color="gray.800" fontWeight="medium">
                             {" "}
                             {profileData?.name}
