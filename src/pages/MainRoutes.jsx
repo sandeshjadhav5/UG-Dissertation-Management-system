@@ -11,6 +11,8 @@ import GuideLogin from "./GuideLogin";
 import GuideDashboard from "./GuideDashboard";
 import GuideStudents from "./GuideStudents";
 import GuideTasks from "./GuideTasks";
+import AdminLogin from "./AdminLogin";
+
 
 function MainRoutes() {
   return (
@@ -28,6 +30,7 @@ function MainRoutes() {
       <Route path="/guidedashboard" element={<GuideDashboard />} />
       <Route path="/guidestudents" element={<GuideStudents />} />
       <Route path="/guidetasks" element={<GuideTasks />} />
+      <Route path="/adminlogin" element={<AdminLogin/>}/>
     </Routes>
   );
 }

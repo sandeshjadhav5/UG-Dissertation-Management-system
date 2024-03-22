@@ -4,22 +4,19 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Checkbox,
   Stack,
   Button,
   Heading,
   Text,
   useColorModeValue,
   useToast,
-  Select,
 } from "@chakra-ui/react";
+import { useState } from "react";
 import axios from "axios";
 import Navbar from "../components/Navbar";
-
-import { useState } from "react";
-import http from "../configs/http";
-
 import { Link, useNavigate } from "react-router-dom";
+import signUp from "../Assets/signUp.gif"
+
 export default function SignUp() {
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState("");
@@ -53,7 +50,7 @@ export default function SignUp() {
         payload
       );
       console.log("group added", response);
-      if (response.status == 201) {
+      if (response.status === 201) {
         console.log("success");
         toast({
           title: `Registered Successfully`,
@@ -82,69 +79,73 @@ export default function SignUp() {
         justify={"center"}
         bg={useColorModeValue("gray.50", "gray.800")}
       >
-        <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
-          <Stack align={"center"}>
-            <Heading fontSize={"4xl"}>Sign Up</Heading>
-          </Stack>
-          <Box
-            rounded={"lg"}
-            bg={useColorModeValue("white", "gray.700")}
+        <Stack spacing={8} mx={"auto"} maxW={"6xl"} py={12} px={6}>
+          <Heading fontSize={"4xl"} textAlign={"center"}>
+            Sign Up
+          </Heading>
+          <Flex
+            direction={{ base: "column", md: "row" }}
+            bg="blue.50"
             boxShadow={"lg"}
+            rounded={"lg"}
             p={8}
           >
-            <form onSubmit={handleSubmit}>
-              <Stack spacing={4}>
-                <FormControl id="name">
-                  <FormLabel>Student Name</FormLabel>
-                  <Input
-                    type="text"
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                </FormControl>
-                <FormControl id="contactNumber">
-                  <FormLabel>Contact Number</FormLabel>
-                  <Input
-                    type="number"
-                    onChange={(e) => setContactNumber(e.target.value)}
-                  />
-                </FormControl>
-                <FormControl id="email">
-                  <FormLabel>Email address</FormLabel>
-                  <Input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </FormControl>
-                <FormControl id="password">
-                  <FormLabel>Password</FormLabel>
-                  <Input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </FormControl>
-                <FormControl id="groupNumber">
-                  <FormLabel>Group Number</FormLabel>
-                  <Input
-                    type="number"
-                    onChange={(e) => setGroupNumber(e.target.value)}
-                  />
-                </FormControl>
-                <Input
-                  value={loading ? "Signing Up..." : "Sign Up"}
-                  w="100%"
-                  mt="5"
-                  bg={"blue.400"}
-                  color={"white"}
-                  _hover={{
-                    bg: "blue.700",
-                  }}
-                  type="submit"
-                />
-              </Stack>
-            </form>
-          </Box>
+            <Box p="4" flex={1} display={{ base: "none", md: "flex" }}>
+              <img src={signUp} alt="signUp gif" />
+            </Box>
+            <Box p="4" flex={1}>
+              <form onSubmit={handleSubmit}>
+                <Stack spacing={4}>
+                  <FormControl id="name">
+                    <FormLabel>Student Name</FormLabel>
+                    <Input
+                      type="text"
+                      onChange={(e) => setName(e.target.value)}
+                    />
+                  </FormControl>
+                  <FormControl id="contactNumber">
+                    <FormLabel>Contact Number</FormLabel>
+                    <Input
+                      type="number"
+                      onChange={(e) => setContactNumber(e.target.value)}
+                    />
+                  </FormControl>
+                  <FormControl id="email">
+                    <FormLabel>Email address</FormLabel>
+                    <Input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </FormControl>
+                  <FormControl id="password">
+                    <FormLabel>Password</FormLabel>
+                    <Input
+                      type="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </FormControl>
+                  <FormControl id="groupNumber">
+                    <FormLabel>Group Number</FormLabel>
+                    <Input
+                      type="number"
+                      onChange={(e) => setGroupNumber(e.target.value)}
+                    />
+                  </FormControl>
+                  <Button
+                    isLoading={loading}
+                    type="submit"
+                    colorScheme="blue"
+                    mt={4}
+                    w="100%"
+                  >
+                    {loading ? "Signing Up..." : "Sign Up"}
+                  </Button>
+                </Stack>
+              </form>
+            </Box>
+          </Flex>
         </Stack>
       </Flex>
     </>

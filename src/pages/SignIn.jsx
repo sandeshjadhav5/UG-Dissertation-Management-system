@@ -4,7 +4,6 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Checkbox,
   Stack,
   Button,
   Heading,
@@ -12,10 +11,12 @@ import {
   useColorModeValue,
   useToast,
 } from "@chakra-ui/react";
+import loginPng from "../Assets/loginPng.png"
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
+
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -78,25 +79,32 @@ export default function SignIn() {
 
   return (
     <>
-      {" "}
-      <Navbar />
-      <Flex
-        minH={"90vh"}
-        align={"center"}
-        justify={"center"}
-        bg={useColorModeValue("gray.50", "gray.800")}
-      >
-        <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
-          <Stack align={"center"}>
-            <Heading fontSize={"4xl"}>Login</Heading>
-          </Stack>
-          <form onSubmit={handleSubmit}>
-            <Box
-              rounded={"lg"}
-              bg={useColorModeValue("white", "gray.700")}
-              boxShadow={"lg"}
-              p={8}
-            >
+    <Navbar />
+    <Flex
+     
+      align={"center"}
+      justify={"center"}
+      bg={useColorModeValue("gray.50", "gray.800")}
+    >
+      <Stack spacing={8} mx={"auto"} maxW={"4xl"} py={12} px={6}>
+        <Heading fontSize={"4xl"} textAlign={"center"}>
+          Login
+        </Heading>
+        <Flex
+          direction={{ base: "column", md: "row" }}
+          bg="blue.50"
+          boxShadow={"lg"}
+          rounded={"lg"}
+          p={8}
+        >
+          
+          {/* Image on the left */}
+          <Box flex={1} display={{ base: "none", md: "flex" }}>
+            <img src={loginPng} alt="login png image" />
+          </Box>
+          {/* Form on the right */}
+          <Box m="auto" flex={1}>
+            <form onSubmit={handleSubmit}>
               <Stack spacing={4}>
                 <FormControl id="email">
                   <FormLabel>Email address</FormLabel>
@@ -113,23 +121,21 @@ export default function SignIn() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
-                  <Input
-                    value={loading ? "Logging in..." : "Login"}
-                    w="100%"
-                    mt="5"
-                    bg={"blue.400"}
-                    color={"white"}
-                    _hover={{
-                      bg: "blue.700",
-                    }}
+                  <Button
+                    isLoading={loading}
                     type="submit"
-                  />
+                    colorScheme="blue"
+                    mt={4}
+                  >
+                    {loading ? "Logging in..." : "Login"}
+                  </Button>
                 </FormControl>
               </Stack>
-            </Box>
-          </form>
-        </Stack>
-      </Flex>
-    </>
+            </form>
+          </Box>
+        </Flex>
+      </Stack>
+    </Flex>
+  </>
   );
 }

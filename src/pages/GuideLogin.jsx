@@ -4,18 +4,18 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Checkbox,
   Stack,
   Button,
   Heading,
-  Text,
   useColorModeValue,
   useToast,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import loginPng from "../Assets/loginPng.png"
+
 export default function GuideLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -27,14 +27,12 @@ export default function GuideLogin() {
   const isAuthGuide = localStorage.getItem("isAuthGuide") || null;
 
   const handleSubmit = (e) => {
-    console.log("function invoked");
     e.preventDefault();
     const payload = {
       email,
       password,
     };
     if (payload) {
-      console.log("payload", payload);
       handleSendLoginRequest(payload);
     }
   };
@@ -46,9 +44,7 @@ export default function GuideLogin() {
         `http://localhost:8000/guide/login`,
         payload
       );
-      console.log("Logging in", response);
-      if (response.status == 201) {
-        console.log("success", response);
+      if (response.status === 201) {
         localStorage.setItem("access_token", response.data.token);
         localStorage.setItem("guideId", response.data.guideId);
         localStorage.setItem("isAuthGuide", true);
@@ -60,7 +56,6 @@ export default function GuideLogin() {
       }
       setLoading(false);
     } catch (err) {
-      console.log(err);
       localStorage.setItem("isAuthGuide", false);
       toast({
         title: `Failed to Login`,
@@ -79,56 +74,59 @@ export default function GuideLogin() {
 
   return (
     <>
-      {" "}
       <Navbar />
       <Flex
         minH={"90vh"}
         align={"center"}
         justify={"center"}
-        bg={useColorModeValue("gray.50", "gray.800")}
+        bg="blue.50"
       >
-        <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
-          <Stack align={"center"}>
-            <Heading fontSize={"4xl"}>Login as a Guide</Heading>
-          </Stack>
-          <form onSubmit={handleSubmit}>
-            <Box
-              rounded={"lg"}
-              bg={useColorModeValue("white", "gray.700")}
-              boxShadow={"lg"}
-              p={8}
-            >
-              <Stack spacing={4}>
-                <FormControl id="email">
-                  <FormLabel>Email address</FormLabel>
-                  <Input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </FormControl>
-                <FormControl id="password">
-                  <FormLabel>Password</FormLabel>
-                  <Input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                  <Input
-                    value={loading ? "Logging in..." : "Login"}
-                    w="100%"
-                    mt="5"
-                    bg={"blue.400"}
-                    color={"white"}
-                    _hover={{
-                      bg: "blue.700",
-                    }}
-                    type="submit"
-                  />
-                </FormControl>
-              </Stack>
+        <Stack spacing={8} mx={"auto"} maxW={"4xl"} py={12} px={6}>
+          <Heading fontSize={"4xl"} textAlign={"center"}>
+            Login as a Guide
+          </Heading>
+          <Flex
+            direction={{ base: "column", md: "row" }}
+            bg="red.100"
+            boxShadow={"lg"}
+            rounded={"lg"}
+            p={8}
+          >
+            <Box flex={1} display={{ base: "none", md: "flex" }}>
+              <img src={loginPng} alt="loginPng" />
             </Box>
-          </form>
+            <Box m="auto" flex={1}>
+              <form onSubmit={handleSubmit}>
+                <Stack spacing={4}>
+                  <FormControl id="email">
+                    <FormLabel>Email address</FormLabel>
+                    <Input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </FormControl>
+                  <FormControl id="password">
+                    <FormLabel>Password</FormLabel>
+                    <Input
+                      type="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <Button
+                      isLoading={loading}
+                      type="submit"
+                      colorScheme="blue"
+                      mt={4}
+                      w="100%"
+                    >
+                      {loading ? "Logging in..." : "Login"}
+                    </Button>
+                  </FormControl>
+                </Stack>
+              </form>
+            </Box>
+          </Flex>
         </Stack>
       </Flex>
     </>
