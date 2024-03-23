@@ -19,8 +19,8 @@ import {
   Spacer,
   IconButton,
 } from "@chakra-ui/react";
-import { useParams } from "react-router-dom";
-import { FaAddressBook, FaEnvelope, FaEdit, FaTrash } from "react-icons/fa";
+import { FaTrash } from "react-icons/fa";
+
 import Navbar from "../components/Navbar";
 
 const YourGuide = () => {
@@ -64,28 +64,35 @@ const YourGuide = () => {
     e.preventDefault();
     const selectedGuideName = selectedGuide;
 
+
     const selectedGuideObject = guidesData.find(
+
       (guide) => guide.name === selectedGuideName
+     
     );
 
     const selectedGuideId = selectedGuideObject?._id;
-    //console.log("selectedGuideId is", selectedGuideId);
+    console.log("selected guide object",selectedGuideObject)
+    console.log("selectedGuideId is", selectedGuide);
 
     let payload = {
-      guide: selectedGuideId,
+      guideId: selectedGuide,
       teamMembers,
       teamLead,
     };
     console.log("payload", payload);
     if (payload) {
-      putGuidesandTeamMembersData(payload);
+      patchGuidesandTeamMembersData(payload);
+    }
+    if (selectedGuide) {
+      assignStudentsToGuide(selectedGuideId, teamMembers, teamLead);
     }
   };
 
-  const putGuidesandTeamMembersData = async (payload) => {
+  const patchGuidesandTeamMembersData = async (payload) => {
     setLoading(true);
     try {
-      const response = await axios.put(
+      const response = await axios.patch(
         `http://localhost:8000/users/profile/${userId}`,
         payload
       );
@@ -104,6 +111,48 @@ const YourGuide = () => {
       console.log(err);
       toast({
         title: `Failed to Save Data`,
+        status: "error",
+        isClosable: true,
+      });
+      setLoading(false);
+    }
+  };
+
+
+//assigning students to guide
+  const assignStudentsToGuide = async () => {
+    try {
+      const payload = {
+        guideId: selectedGuide,
+       studentId:userId
+      };
+  
+      setLoading(true);
+      const response = await axios.patch(
+        `http://localhost:8000/guide//add-student/${selectedGuide}/${userId}`,
+      );
+  
+      console.log("Updated data is", response);
+  
+      if (response.status === 200) {
+        toast({
+          title: "students assigned to guide  Successfully",
+          status: "success",
+          isClosable: true,
+        });
+      } else {
+        toast({
+          title: "Failed to Save Data",
+          status: "error",
+          isClosable: true,
+        });
+      }
+  
+      setLoading(false);
+    } catch (err) {
+      console.error("Error updating guide data:", err);
+      toast({
+        title: "Failed to Save Data",
         status: "error",
         isClosable: true,
       });
@@ -200,23 +249,31 @@ const YourGuide = () => {
                                 <span style={{ color: "red" }}>*</span>
                               </FormLabel>
                               <InputGroup>
-                                <Select
-                                  color="#322659"
-                                  _dark={{ color: "white" }}
-                                  onChange={(e) =>
-                                    setSelectedGuide(e.target.value)
-                                  }
-                                  required
-                                  focusBorderColor="brand.400"
-                                  rounded="md"
-                                  value={selectedGuide}
-                                >
-                                  {guidesData.map((guide) => (
-                                    <option key={guide._id} value={guide.id}>
-                                      {guide.name}
-                                    </option>
-                                  ))}
-                                </Select>
+                              <Select
+  color="#322659"
+  _dark={{ color: "white" }}
+  onChange={(e) => {
+    const selectedGuideId = e.target.value; // Store the selected guide ID
+    const selectedGuideObject = guidesData.find(
+      (guide) => guide._id === selectedGuideId
+    );
+    console.log('Selected Guide ID:', selectedGuideId);
+    console.log('Selected Guide Object:', selectedGuideObject);
+    setSelectedGuide(selectedGuideId);
+  }}
+  required
+  focusBorderColor="brand.400"
+  rounded="md"
+  value={selectedGuide}
+>
+  {guidesData.map((guide) => (
+    <option key={guide._id} value={guide._id}>
+      {guide.name}
+    </option>
+  ))}
+</Select>
+
+
                               </InputGroup>
                             </Box>
                           </SimpleGrid>
