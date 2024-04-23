@@ -15,9 +15,7 @@ import AdminLogin from "./AdminLogin";
 import AdminDashboard from "./AdminDashboard";
 import AddTeamMembers from "./AddTeamMembers";
 import ManageProgress from "./ManageProgress";
-
-
-
+import AllQueries from "./AllQueries";
 
 function MainRoutes() {
   return (
@@ -37,8 +35,9 @@ function MainRoutes() {
       <Route path="/guidedashboard" element={<GuideDashboard />} />
       <Route path="/guidestudents" element={<GuideStudents />} />
       <Route path="/guidetasks" element={<GuideTasks />} />
-      <Route path="/adminlogin" element={<AdminLogin/>}/>
-      <Route path="/admindashboard" element={<AdminDashboard/>}/>
+      <Route path="/adminlogin" element={<AdminLogin />} />
+      <Route path="/admindashboard" element={<AdminDashboard />} />
+      <Route path="/allqueries" element={<AllQueries />} />
     </Routes>
   );
 }

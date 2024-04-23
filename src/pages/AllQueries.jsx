@@ -5,8 +5,9 @@ import http from "../configs/http";
 import { Box, Heading, Text, VStack, Button, Input } from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
 
-const Queries = () => {
+const AllQueries = () => {
   const [profileData, setProfileData] = useState([]);
+  const [queries, setQueries] = useState([]);
 
   const userId = localStorage.getItem("userId") || null;
   const [query, setQuery] = useState("");
@@ -51,6 +52,19 @@ const Queries = () => {
   };
 
   useEffect(() => {
+    const fetchQueries = async () => {
+      try {
+        const response = await axios.get("http://localhost:8000/users/queries");
+        setQueries(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchQueries();
+  }, []);
+
+  useEffect(() => {
     getUserProfileData();
   }, []);
   return (
@@ -73,22 +87,30 @@ const Queries = () => {
           <Navbar />
           <br />
           <br />
-          <Box w={"30%"} m="auto" bg={"white"} p="8" borderRadius={"6"}>
-            <Heading textAlign="center">Submit Query</Heading>
+          <Box m="auto" bg={"white"} p="8" borderRadius={"6"}>
+            <Heading textAlign="center">All Queries</Heading>
             <br />
             <br />
-            <form onSubmit={handleSubmit}>
-              <div>
-                <label htmlFor="query">Query:</label>
-                <Input
-                  id="query"
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                />
-              </div>
-              <br />
-              <Button type="submit">Submit</Button>
-            </form>
+            <div>
+              <ul>
+                {queries.map((query) => (
+                  <li key={query._id}>
+                    <strong>Query:</strong> {query.query}
+                    <br />
+                    <strong>Guide:</strong> {query.guide}
+                    <br />
+                    {query.answer ? (
+                      <>
+                        <strong>Answer:</strong> {query.answer}
+                      </>
+                    ) : (
+                      <em>Not Answered Yet</em>
+                    )}
+                    <hr />
+                  </li>
+                ))}
+              </ul>
+            </div>
           </Box>
 
           <br />
@@ -99,4 +121,4 @@ const Queries = () => {
   );
 };
 
-export default Queries;
+export default AllQueries;
