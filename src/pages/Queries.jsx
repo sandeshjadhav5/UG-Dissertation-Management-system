@@ -43,7 +43,7 @@ const Queries = () => {
       if (response.status == 201) {
         console.log("success", response.data);
         setProfileData(response.data);
-        localStorage.setItem("guideId", response?.data?.guide);
+        localStorage.setItem("guide_Id", response?.data?.guide);
       }
     } catch (err) {
       console.log(err);

@@ -32,6 +32,8 @@ import Navbar from "../components/Navbar";
 
 const GuideStudents = () => {
   const [profileData, setProfileData] = useState([]);
+  const [studentsAssigned, setStudentsAssigned] = useState([]);
+
   const guideId = localStorage.getItem("guideId") || null;
   const guideProfileData = async () => {
     try {
@@ -47,6 +49,23 @@ const GuideStudents = () => {
       console.log(err);
     }
   };
+
+  const getStudentsAssigned = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8000/guide/${guideId}/students`
+      );
+      console.log("profile data", response);
+
+      if (response.status == 200) {
+        setStudentsAssigned(response.data);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  console.log("students assignend", studentsAssigned);
   // Static student data
   const students = [
     { id: 1, name: "Somnath Chavan", email: "somnath@example.com" },
@@ -57,7 +76,8 @@ const GuideStudents = () => {
     { id: 6, name: "Dinesh Patil", email: "dinesh@example.com" },
   ];
   useEffect(() => {
-    guideProfileData();
+    getStudentsAssigned();
+    // guideProfileData();
   }, []);
   return (
     <div>
@@ -89,13 +109,29 @@ const GuideStudents = () => {
           <Box mt="12">
             {" "}
             {/* Render the student data */}
-            {students.map((student) => (
-              <Box key={student.id} p="4" bg="white" mb="4" borderWidth="1px">
+            {studentsAssigned?.map((student) => (
+              <Box key={student._id} p="4" bg="white" mb="4" borderWidth="1px">
                 <Stack direction="row" spacing="4">
                   <Avatar name={student.name} />
                   <VStack align="flex-start" spacing="1">
-                    <Text fontWeight="bold">{student.name}</Text>
+                    <Text fontSize={"24"} fontWeight="bold">
+                      {student.name}
+                    </Text>
                     <Text>{student.email}</Text>
+                    <Text>Group Number : {student.groupNumber}</Text>
+                    <Text>Contact Number : {student.contactNumber}</Text>
+                    <Spacer />
+                    <Spacer />
+                    <Spacer />
+                    <Text fontSize={"24"}>Team Members</Text>
+                    {student?.teamMembers?.map((member) => (
+                      <Box>
+                        <VStack>
+                          <Text>Group Number : {member.name}</Text>
+                          <Text>Contact Number : {member.rollNumber}</Text>
+                        </VStack>
+                      </Box>
+                    ))}
                   </VStack>
                   <Spacer />
                   <Stack direction="row" spacing="4">

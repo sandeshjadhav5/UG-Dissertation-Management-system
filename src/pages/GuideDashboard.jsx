@@ -18,6 +18,7 @@ import {
   IconButton,
   useDisclosure,
   Modal,
+  Image,
   ModalOverlay,
   ModalContent,
   ModalHeader,
@@ -69,6 +70,10 @@ const GuideDashboard = () => {
           as="main"
           borderWidth="2px"
         >
+          <Image
+            w="100%"
+            src="https://kbpcoes.edu.in/images/header/logo-wide.jpg"
+          />
           <Box bg="#EBDEF0">
             <Text fontSize="lg" p="4" textAlign={"left"}>
               Welcome to Guide Dashboard,{" "}

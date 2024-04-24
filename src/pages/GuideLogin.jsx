@@ -14,7 +14,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import loginPng from "../Assets/loginPng.png"
+import loginPng from "../Assets/loginPng.png";
 
 export default function GuideLogin() {
   const [email, setEmail] = useState("");
@@ -75,12 +75,7 @@ export default function GuideLogin() {
   return (
     <>
       <Navbar />
-      <Flex
-        minH={"90vh"}
-        align={"center"}
-        justify={"center"}
-        bg="blue.50"
-      >
+      <Flex minH={"90vh"} align={"center"} justify={"center"} bg="blue.50">
         <Stack spacing={8} mx={"auto"} maxW={"4xl"} py={12} px={6}>
           <Heading fontSize={"4xl"} textAlign={"center"}>
             Login as a Guide

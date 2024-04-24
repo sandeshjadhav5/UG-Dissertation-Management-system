@@ -36,7 +36,10 @@ const Navbar = () => {
   };
   return (
     <React.Fragment>
-      <Image src="https://kbpcoes.edu.in/images/header/logo-wide.jpg" />
+      <Image
+        w="100%"
+        src="https://kbpcoes.edu.in/images/header/logo-wide.jpg"
+      />
       <chakra.header
         bgColor="#E9D8FD"
         w="full"
