@@ -25,6 +25,7 @@ import {
   ModalBody,
   ModalCloseButton,
   Button,
+  Image,
 } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { FaAddressBook, FaEnvelope, FaEdit, FaTrash } from "react-icons/fa";
@@ -88,6 +89,10 @@ const GuideStudents = () => {
           <GuideSidebar />
         </Box>
         {/* --------------------------------------MAIN CONTENT GOES HERE------------------------------------- */}
+        <Image
+          w="100%"
+          src="https://kbpcoes.edu.in/images/header/logo-wide.jpg"
+        />
         <Box
           minH="100vh"
           ml={{
@@ -127,14 +132,16 @@ const GuideStudents = () => {
                     {student?.teamMembers?.map((member) => (
                       <Box>
                         <VStack>
-                          <Text>Group Number : {member.name}</Text>
+                          <Text>- Group Number : {member.name}</Text>
                           <Text>Contact Number : {member.rollNumber}</Text>
+                          <Spacer />
+                          <Spacer />
                         </VStack>
                       </Box>
                     ))}
                   </VStack>
                   <Spacer />
-                  <Stack direction="row" spacing="4">
+                  {/* <Stack direction="row" spacing="4">
                     <IconButton
                       aria-label="Edit"
                       icon={<FaEdit />}
@@ -149,7 +156,7 @@ const GuideStudents = () => {
                         // Handle delete action
                       }}
                     />
-                  </Stack>
+                  </Stack> */}
                 </Stack>
               </Box>
             ))}

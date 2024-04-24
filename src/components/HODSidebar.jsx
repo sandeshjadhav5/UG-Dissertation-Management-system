@@ -23,7 +23,7 @@ import {
 import { BsGearFill } from "react-icons/bs";
 import { FiSearch, FiMenu } from "react-icons/fi";
 
-const GuideSidebar = () => {
+const HODSidebar = () => {
   const sidebar = useDisclosure();
   const integrations = useDisclosure();
   const color = useColorModeValue("gray.600", "gray.300");
@@ -100,7 +100,7 @@ const GuideSidebar = () => {
           textTransform="uppercase"
           fontWeight="semibold"
         >
-          Guide Dashboard
+          HOD Dashboard
         </Text>
       </Flex>
       <Flex
@@ -115,13 +115,13 @@ const GuideSidebar = () => {
         </NavItem> */}
         <NavItem icon={FaHandsHelping}>
           {" "}
-          <Link to="/guidestudents">Your Students</Link>
+          <Link to="/guidestudents">All projects</Link>
         </NavItem>
         <NavItem icon={FaHandsHelping}>
           {" "}
-          <Link to="/guidetasks">Create Tasks</Link>
+          <Link to="/guidetasks">Create Updates</Link>
         </NavItem>
-        <NavItem onClick={handleGuideLogout} icon={FaHandsHelping}>
+        <NavItem onClick={handleHODLogout} icon={FaHandsHelping}>
           Logout
         </NavItem>
       </Flex>
@@ -129,8 +129,8 @@ const GuideSidebar = () => {
   );
   const navigate = useNavigate();
 
-  const handleGuideLogout = () => {
-    localStorage.removeItem("isAuthGuide");
+  const handleHODLogout = () => {
+    localStorage.removeItem("isAuthHOD");
     localStorage.removeItem("guideId");
     // Redirect to the guide login page
     navigate("/guidelogin");
@@ -163,4 +163,4 @@ const GuideSidebar = () => {
   );
 };
 
-export default GuideSidebar;
+export default HODSidebar;

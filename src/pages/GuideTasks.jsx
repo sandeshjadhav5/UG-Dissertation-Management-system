@@ -63,12 +63,17 @@ const GuideTasks = () => {
     guideProfileData();
   }, []);
 
+  const userId = localStorage.getItem("userId") || "";
+
   const handleTaskSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `http://localhost:8000/guide/tasks/${guideId}`,
-        taskData
+        `http://localhost:8000/guide/create-task`,
+        {
+          ...taskData,
+          assignedTo: userId,
+        }
       );
       console.log("task created", response);
       if (response.status === 201) {

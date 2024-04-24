@@ -16,6 +16,8 @@ import AdminDashboard from "./AdminDashboard";
 import AddTeamMembers from "./AddTeamMembers";
 import ManageProgress from "./ManageProgress";
 import AllQueries from "./AllQueries";
+import HODLogin from "./HODLogin";
+import HODDashboard from "./HODDashboard";
 
 function MainRoutes() {
   return (
@@ -38,6 +40,8 @@ function MainRoutes() {
       <Route path="/adminlogin" element={<AdminLogin />} />
       <Route path="/admindashboard" element={<AdminDashboard />} />
       <Route path="/allqueries" element={<AllQueries />} />
+      <Route path="/hodlogin" element={<HODLogin />} />
+      <Route path="/hoddashboard" element={<HODDashboard />} />
     </Routes>
   );
 }
