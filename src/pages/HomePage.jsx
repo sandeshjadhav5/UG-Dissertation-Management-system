@@ -12,14 +12,30 @@ import {
   Flex,
   Badge,
   Heading,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  Center,
+  Grid,
+  GridItem,
 } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
 import Features from "../components/Features";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import projectCalender from "../Assets/projectCalender.pdf";
+import synopsis from "../Assets/synopsis.pdf";
+import btechProject from "../Assets/btechProject.pdf";
+import guideList from "../Assets/guideList.pdf";
 
 const HomePage = () => {
   const [updates, setUpdates] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPdf, setSelectedPdf] = useState(null);
 
   const getAllUpdates = async () => {
     try {
@@ -34,6 +50,21 @@ const HomePage = () => {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const pdfData = [
+    { name: "Project Calendar", pdfUrl: projectCalender },
+    { name: "Report Format", pdfUrl: synopsis },
+    { name: "Guide List", pdfUrl: guideList },
+    { name: "Project List Along with Status", pdfUrl: btechProject },
+  ];
+
+  const openModal = (pdf) => {
+    setSelectedPdf(pdf);
+  };
+
+  const closeModal = () => {
+    setSelectedPdf(null);
   };
 
   useEffect(() => {
@@ -158,8 +189,8 @@ const HomePage = () => {
                     </Badge>
                   </Box>
                   {updates &&
-                    updates.map((update) => (
-                      <Box m="4">
+                    updates.slice(0, 4).map((update) => (
+                      <Box key={update.id} m="4">
                         <Text
                           mt="1"
                           fontWeight="semibold"
@@ -185,6 +216,85 @@ const HomePage = () => {
             </Flex>
           </Box>
         </SimpleGrid>
+        <Box
+          w="90%"
+          m="auto"
+          alignContent={"center"}
+          alignItems={"center"}
+          justifyContent="center"
+        >
+          <Flex
+            _dark={{
+              bg: "#3e3e3e",
+            }}
+            p={50}
+            w="full"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Grid
+              templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }}
+              gap={12}
+              w="100%"
+              maxW="1200px"
+            >
+              {pdfData.map((pdf, index) => (
+                <GridItem
+                  alignItems={"center"}
+                  alignContent={"center"}
+                  justifyContent={"center"}
+                  key={index}
+                >
+                  <Box
+                    bg="white"
+                    _dark={{
+                      bg: "gray.800",
+                    }}
+                    borderWidth="1px"
+                    alignItems={"center"}
+                    alignContent={"center"}
+                    justifyContent={"center"}
+                    rounded="lg"
+                    shadow="lg"
+                    onClick={() => openModal(pdf)}
+                    cursor="pointer"
+                  >
+                    <Box
+                      p="6"
+                      textAlign={"center"}
+                      alignItems={"center"}
+                      alignContent={"center"}
+                      justifyContent={"center"}
+                    >
+                      <Heading fontSize="xl">{pdf.name}</Heading>
+                    </Box>
+                  </Box>
+                </GridItem>
+              ))}
+            </Grid>
+          </Flex>
+        </Box>
+        <Modal isOpen={selectedPdf !== null} onClose={closeModal} size="7xl">
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>{selectedPdf?.name}</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <Center>
+                <iframe
+                  width="100%"
+                  height="600px"
+                  src={selectedPdf?.pdfUrl}
+                ></iframe>
+              </Center>
+            </ModalBody>
+            <ModalFooter>
+              <Button colorScheme="blue" mr={3} onClick={closeModal}>
+                Close
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
         <Features />
       </Box>
     </>

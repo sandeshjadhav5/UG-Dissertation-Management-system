@@ -45,6 +45,7 @@ const CreateUpdate = () => {
     title: "",
     description: "",
   });
+  const toast = useToast();
 
   const guideId = localStorage.getItem("guideId") || null;
 
