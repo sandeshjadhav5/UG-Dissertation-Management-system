@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import {
   chakra,
   Button,
@@ -18,9 +19,29 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 
 const HomePage = () => {
+  const [updates, setUpdates] = useState([]);
   const property = {
     title: "Examination Schedule for Winter 2023 exam",
   };
+
+  const getAllUpdates = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8000/updates/allupdates`
+      );
+      console.log("updates data", response);
+
+      if (response.status == 200) {
+        setUpdates(response.data);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getAllUpdates();
+  }, []);
   return (
     <>
       <Navbar />
@@ -139,33 +160,20 @@ const HomePage = () => {
                       New
                     </Badge>
                   </Box>
-                  <Text
-                    mt="1"
-                    fontWeight="semibold"
-                    as="h4"
-                    lineHeight="tight"
-                    noOfLines={1}
-                  >
-                    {property.title}
-                  </Text>
-                  <Text
-                    mt="1"
-                    fontWeight="semibold"
-                    as="h4"
-                    lineHeight="tight"
-                    noOfLines={1}
-                  >
-                    {property.title}
-                  </Text>{" "}
-                  <Text
-                    mt="1"
-                    fontWeight="semibold"
-                    as="h4"
-                    lineHeight="tight"
-                    noOfLines={1}
-                  >
-                    {property.title}
-                  </Text>
+                  {updates &&
+                    updates.map(() => (
+                      <>
+                        <Text
+                          mt="1"
+                          fontWeight="semibold"
+                          as="h4"
+                          lineHeight="tight"
+                          noOfLines={1}
+                        >
+                          {updates.name}
+                        </Text>
+                      </>
+                    ))}
                 </Box>
               </Box>
             </Flex>
