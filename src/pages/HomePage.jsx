@@ -20,9 +20,6 @@ import Navbar from "../components/Navbar";
 
 const HomePage = () => {
   const [updates, setUpdates] = useState([]);
-  const property = {
-    title: "Examination Schedule for Winter 2023 exam",
-  };
 
   const getAllUpdates = async () => {
     try {
@@ -161,18 +158,27 @@ const HomePage = () => {
                     </Badge>
                   </Box>
                   {updates &&
-                    updates.map(() => (
-                      <>
+                    updates.map((update) => (
+                      <Box m="4">
                         <Text
                           mt="1"
                           fontWeight="semibold"
-                          as="h4"
+                          fontSize="16"
+                          color="blue.300"
                           lineHeight="tight"
                           noOfLines={1}
                         >
-                          {updates.name}
+                          {update.name}
                         </Text>
-                      </>
+                        <Text
+                          mt="1"
+                          fontSize="12"
+                          lineHeight="tight"
+                          noOfLines={2}
+                        >
+                          {update.description}
+                        </Text>
+                      </Box>
                     ))}
                 </Box>
               </Box>

@@ -115,11 +115,15 @@ const HODSidebar = () => {
         </NavItem> */}
         <NavItem icon={FaHandsHelping}>
           {" "}
-          <Link to="/guidestudents">All projects</Link>
+          <Link to="/allprojectslist">All projects</Link>
         </NavItem>
         <NavItem icon={FaHandsHelping}>
           {" "}
-          <Link to="/guidetasks">Create Updates</Link>
+          <Link to="/createupdate">Create Update</Link>
+        </NavItem>
+        <NavItem icon={FaHandsHelping}>
+          {" "}
+          <Link to="/totalupdates">Updates</Link>
         </NavItem>
         <NavItem onClick={handleHODLogout} icon={FaHandsHelping}>
           Logout

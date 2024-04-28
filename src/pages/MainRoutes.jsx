@@ -18,6 +18,7 @@ import ManageProgress from "./ManageProgress";
 import AllQueries from "./AllQueries";
 import HODLogin from "./HODLogin";
 import HODDashboard from "./HODDashboard";
+import CreateUpdate from "./CreateUpdate";
 
 function MainRoutes() {
   return (
@@ -42,6 +43,7 @@ function MainRoutes() {
       <Route path="/allqueries" element={<AllQueries />} />
       <Route path="/hodlogin" element={<HODLogin />} />
       <Route path="/hoddashboard" element={<HODDashboard />} />
+      <Route path="/createupdate" element={<CreateUpdate />} />
     </Routes>
   );
 }
