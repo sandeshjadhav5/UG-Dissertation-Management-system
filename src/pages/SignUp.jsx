@@ -15,7 +15,7 @@ import { useState } from "react";
 import axios from "axios";
 import Navbar from "../components/Navbar";
 import { Link, useNavigate } from "react-router-dom";
-import signUp from "../Assets/signUp.gif"
+import signUp from "../Assets/signUp.gif";
 
 export default function SignUp() {
   const [loading, setLoading] = useState(false);
@@ -57,6 +57,9 @@ export default function SignUp() {
           status: "success",
           isClosable: true,
         });
+        setTimeout(() => {
+          navigate("/signin");
+        }, 2000);
       }
       setLoading(false);
     } catch (err) {

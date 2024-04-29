@@ -123,10 +123,6 @@ const Sidebar = () => {
         </NavItem>
         <NavItem icon={MdCreate}>
           {" "}
-          <Link to="/addteammembers">Add Team Members</Link>
-        </NavItem>
-        <NavItem icon={MdCreate}>
-          {" "}
           <Link to="/manageprogress">Manage Progress</Link>
         </NavItem>
         <NavItem icon={MdCreate}>
