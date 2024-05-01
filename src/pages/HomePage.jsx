@@ -31,6 +31,7 @@ import projectCalender from "../Assets/projectCalender.pdf";
 import synopsis from "../Assets/synopsis.pdf";
 import btechProject from "../Assets/btechProject.pdf";
 import guideList from "../Assets/guideList.pdf";
+import ProjectsList from "../components/ProjectsList";
 
 const HomePage = () => {
   const [updates, setUpdates] = useState([]);
@@ -223,6 +224,13 @@ const HomePage = () => {
           alignItems={"center"}
           justifyContent="center"
         >
+          <Heading
+            textAlign={"center"}
+            bgClip="text"
+            bgGradient="linear(to-r, green.400,purple.500)"
+          >
+            Report Formats
+          </Heading>
           <Flex
             _dark={{
               bg: "#3e3e3e",
@@ -274,6 +282,7 @@ const HomePage = () => {
             </Grid>
           </Flex>
         </Box>
+        <ProjectsList />
         <Modal isOpen={selectedPdf !== null} onClose={closeModal} size="7xl">
           <ModalOverlay />
           <ModalContent>

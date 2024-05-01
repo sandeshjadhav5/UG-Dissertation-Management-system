@@ -35,7 +35,7 @@ const ManageProgress = () => {
     };
     e.preventDefault();
     try {
-      const response = await axios.post(
+      const response = await axios.patch(
         `http://localhost:8000/users/update-project-status/${userId}`,
         payload
       );
