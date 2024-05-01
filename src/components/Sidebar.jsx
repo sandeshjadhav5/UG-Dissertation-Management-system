@@ -127,7 +127,7 @@ const Sidebar = () => {
         </NavItem>
         <NavItem icon={MdCreate}>
           {" "}
-          <Link to="/editdata">Create</Link>
+          <Link to="/editdata">Project Information</Link>
         </NavItem>
         <NavItem icon={FaClipboardCheck}>
           {" "}
