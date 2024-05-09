@@ -36,8 +36,8 @@ const AdminDashboard = () => {
   const AdminProfileDat = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/Admin/profile/$AdminId}`
-    );
+        `https://sore-plum-rooster-belt.cyclic.app/Admin/profile/$AdminId}`
+      );
       console.log("profile data", response);
 
       if (response.status == 201) {
@@ -57,7 +57,8 @@ const AdminDashboard = () => {
         {/* ------------------------------------------ SIDEBAR DIV ------------------------------------------ */}
         <Box>
           {" "}
-          <AdminSidebar />        </Box>
+          <AdminSidebar />{" "}
+        </Box>
         {/* --------------------------------------MAIN CONTENT GOES HERE------------------------------------- */}
         <Box
           minH="100vh"
@@ -70,7 +71,7 @@ const AdminDashboard = () => {
         >
           <Box bg="#EBDEF0">
             <Text fontSize="lg" p="4" textAlign={"left"}>
-           Admin Dashboard
+              Admin Dashboard
               <Text color="green.600" fontWeight="bold">
                 {" "}
                 {profileData?.name}
@@ -102,7 +103,7 @@ const AdminDashboard = () => {
                           {" "}
                           <Text fontSize="md" fontWeight="small">
                             Admin Name
-                         </Text>
+                          </Text>
                           <Text color="gray.800" fontWeight="medium">
                             {" "}
                             {profileData?.name}

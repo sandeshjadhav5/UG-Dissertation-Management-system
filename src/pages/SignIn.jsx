@@ -11,7 +11,7 @@ import {
   useColorModeValue,
   useToast,
 } from "@chakra-ui/react";
-import loginPng from "../Assets/loginPng.png"
+import loginPng from "../Assets/loginPng.png";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
@@ -43,7 +43,7 @@ export default function SignIn() {
     try {
       setLoading(true);
       const response = await axios.post(
-        `http://localhost:8000/users/login`,
+        `https://sore-plum-rooster-belt.cyclic.app/users/login`,
         payload
       );
       console.log("Logging in", response);
@@ -79,63 +79,61 @@ export default function SignIn() {
 
   return (
     <>
-    <Navbar />
-    <Flex
-     
-      align={"center"}
-      justify={"center"}
-      bg={useColorModeValue("gray.50", "gray.800")}
-    >
-      <Stack spacing={8} mx={"auto"} maxW={"4xl"} py={12} px={6}>
-        <Heading fontSize={"4xl"} textAlign={"center"}>
-          Login
-        </Heading>
-        <Flex
-          direction={{ base: "column", md: "row" }}
-          bg="blue.50"
-          boxShadow={"lg"}
-          rounded={"lg"}
-          p={8}
-        >
-          
-          {/* Image on the left */}
-          <Box flex={1} display={{ base: "none", md: "flex" }}>
-            <img src={loginPng} alt="login png image" />
-          </Box>
-          {/* Form on the right */}
-          <Box m="auto" flex={1}>
-            <form onSubmit={handleSubmit}>
-              <Stack spacing={4}>
-                <FormControl id="email">
-                  <FormLabel>Email address</FormLabel>
-                  <Input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </FormControl>
-                <FormControl id="password">
-                  <FormLabel>Password</FormLabel>
-                  <Input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                  <Button
-                    isLoading={loading}
-                    type="submit"
-                    colorScheme="blue"
-                    mt={4}
-                  >
-                    {loading ? "Logging in..." : "Login"}
-                  </Button>
-                </FormControl>
-              </Stack>
-            </form>
-          </Box>
-        </Flex>
-      </Stack>
-    </Flex>
-  </>
+      <Navbar />
+      <Flex
+        align={"center"}
+        justify={"center"}
+        bg={useColorModeValue("gray.50", "gray.800")}
+      >
+        <Stack spacing={8} mx={"auto"} maxW={"4xl"} py={12} px={6}>
+          <Heading fontSize={"4xl"} textAlign={"center"}>
+            Login
+          </Heading>
+          <Flex
+            direction={{ base: "column", md: "row" }}
+            bg="blue.50"
+            boxShadow={"lg"}
+            rounded={"lg"}
+            p={8}
+          >
+            {/* Image on the left */}
+            <Box flex={1} display={{ base: "none", md: "flex" }}>
+              <img src={loginPng} alt="login png image" />
+            </Box>
+            {/* Form on the right */}
+            <Box m="auto" flex={1}>
+              <form onSubmit={handleSubmit}>
+                <Stack spacing={4}>
+                  <FormControl id="email">
+                    <FormLabel>Email address</FormLabel>
+                    <Input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </FormControl>
+                  <FormControl id="password">
+                    <FormLabel>Password</FormLabel>
+                    <Input
+                      type="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <Button
+                      isLoading={loading}
+                      type="submit"
+                      colorScheme="blue"
+                      mt={4}
+                    >
+                      {loading ? "Logging in..." : "Login"}
+                    </Button>
+                  </FormControl>
+                </Stack>
+              </form>
+            </Box>
+          </Flex>
+        </Stack>
+      </Flex>
+    </>
   );
 }

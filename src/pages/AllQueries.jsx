@@ -19,7 +19,7 @@ const AllQueries = () => {
 
     try {
       await axios.post(
-        `http://localhost:8000/users/students/${userId}/add-query`,
+        `https://sore-plum-rooster-belt.cyclic.app/users/students/${userId}/add-query`,
         {
           query,
           guideId,
@@ -37,7 +37,7 @@ const AllQueries = () => {
   const getUserProfileData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/users/profile/${userId}`
+        `https://sore-plum-rooster-belt.cyclic.app/users/profile/${userId}`
       );
       console.log("profile data", response);
 
@@ -54,7 +54,9 @@ const AllQueries = () => {
   useEffect(() => {
     const fetchQueries = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/users/queries");
+        const response = await axios.get(
+          "https://sore-plum-rooster-belt.cyclic.app/users/queries"
+        );
         setQueries(response.data);
       } catch (error) {
         console.error(error);

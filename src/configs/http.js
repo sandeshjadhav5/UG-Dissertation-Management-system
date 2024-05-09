@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const baseURL = "http://localhost:8000";
+export const baseURL = "https://sore-plum-rooster-belt.cyclic.app";
 
 const http = axios.create({ baseURL });
 const access_token = localStorage.getItem("access_token");

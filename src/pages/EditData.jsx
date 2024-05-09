@@ -61,7 +61,7 @@ const EditData = () => {
     };
     try {
       const response = await axios.post(
-        "http://localhost:8000/users/add-project-info",
+        "https://sore-plum-rooster-belt.cyclic.app/users/add-project-info",
         payload
       );
       console.log(response.data);

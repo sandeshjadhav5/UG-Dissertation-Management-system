@@ -33,7 +33,7 @@ const GuideTasks = () => {
   const guideProfileData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/guide/profile/${guideId}`
+        `https://sore-plum-rooster-belt.cyclic.app/guide/profile/${guideId}`
       );
       console.log("profile data", response);
 
@@ -55,7 +55,7 @@ const GuideTasks = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `http://localhost:8000/guide/create-task`,
+        `https://sore-plum-rooster-belt.cyclic.app/guide/create-task`,
         {
           ...taskData,
           assignedTo: userId,
