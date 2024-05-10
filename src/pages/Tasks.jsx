@@ -2,35 +2,41 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Sidebar from "../components/Sidebar";
 import http from "../configs/http";
-import { Box, Heading, Text, VStack, Button, Input } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  Text,
+  VStack,
+  Button,
+  Input,
+  Checkbox,
+} from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
 
-const Queries = () => {
+const Tasks = () => {
   const [profileData, setProfileData] = useState([]);
 
   const userId = localStorage.getItem("userId") || null;
+
+  const [tasks, setTasks] = useState([]);
+
   const [query, setQuery] = useState("");
 
   const guideId = localStorage.getItem("guideId") || "";
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const getTasks = async () => {
     try {
-      await axios.post(
-        `http://localhost:8000/users/students/${userId}/add-query`,
-        {
-          query,
-          guideId,
-        }
+      const response = await axios.get(
+        `http://localhost:8000/guide/tasks/${guideId}`
       );
-      // Reset form fields after successful submission
-      setQuery("");
-      alert("Query added successfully!");
+      console.log("tasks ==>", response.data);
+      if (response.status == 200) {
+        setTasks(response.data);
+      }
     } catch (error) {
       console.error(error.response.data);
-      // Handle error, show error message to the user, etc.
-      alert("Failed to add query. Please try again.");
+
+      alert("No tasks found");
     }
   };
   const getUserProfileData = async () => {
@@ -52,6 +58,7 @@ const Queries = () => {
 
   useEffect(() => {
     getUserProfileData();
+    getTasks();
   }, []);
   return (
     <div>
@@ -74,21 +81,28 @@ const Queries = () => {
           <br />
           <br />
           <Box w={"30%"} m="auto" bg={"white"} p="8" borderRadius={"6"}>
-            <Heading textAlign="center">Submit Query</Heading>
+            <Heading textAlign="center">List of Tasks</Heading>
             <br />
             <br />
-            <form onSubmit={handleSubmit}>
-              <div>
-                <label htmlFor="query">Query:</label>
-                <Input
-                  id="query"
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                />
-              </div>
-              <br />
-              <Button type="submit">Submit</Button>
-            </form>
+            {tasks &&
+              tasks?.map((el, i) => (
+                <Box m="4">
+                  <Text>
+                    {i + 1} . {el.title}
+                  </Text>
+
+                  <Text>description :- {el.description}</Text>
+                  <Text>
+                    deadline :-{" "}
+                    {new Date(el.deadline).toISOString().slice(0, 10)}
+                  </Text>
+                  <br />
+                  <span>
+                    {" "}
+                    <Checkbox /> Mark as Done
+                  </span>
+                </Box>
+              ))}
           </Box>
 
           <br />
@@ -99,4 +113,4 @@ const Queries = () => {
   );
 };
 
-export default Queries;
+export default Tasks;

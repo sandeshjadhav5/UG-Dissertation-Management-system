@@ -43,7 +43,7 @@ export default function SignIn() {
     try {
       setLoading(true);
       const response = await axios.post(
-        `https://sore-plum-rooster-belt.cyclic.app/users/login`,
+        `http://localhost:8000/users/login`,
         payload
       );
       console.log("Logging in", response);

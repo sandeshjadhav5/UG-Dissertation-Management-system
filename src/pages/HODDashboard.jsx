@@ -8,7 +8,6 @@ import {
   chakra,
   Icon,
   Stack,
-  Text,
   Spacer,
   Avatar,
   VStack,
@@ -19,39 +18,61 @@ import {
   useDisclosure,
   Modal,
   Image,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
+  Input,
   Button,
+  Text,
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
+  Select,
 } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { FaAddressBook, FaEnvelope, FaEdit, FaTrash } from "react-icons/fa";
 import Navbar from "../components/Navbar";
 import HODSidebar from "../components/HODSidebar";
+import StudentsList from "../components/StudentsList";
 
 const HODDashboard = () => {
-  const [projectsData, setprojectsData] = useState([]);
+  const [studentsData, setstudentsData] = useState([]);
+  const [guidesData, setGuidesData] = useState([]);
   const guideId = localStorage.getItem("guideId") || null;
-  const getProjectsData = async () => {
+  const getstudentsData = async () => {
     try {
       const response = await axios.get(
-        `https://sore-plum-rooster-belt.cyclic.app/guide/profile/${guideId}`
+        `http://localhost:8000/users/allstudents`
       );
-      console.log("profile data", response);
+      console.log("students data", response);
 
-      if (response.status == 201) {
-        setprojectsData(response.data);
+      if (response.status == 200) {
+        setstudentsData(response.data);
       }
     } catch (err) {
       console.log(err);
     }
   };
 
+  const getGuidesData = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8000/guide/all`);
+      console.log("guides data", response);
+
+      if (response.status == 200) {
+        setGuidesData(response.data);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  console.log("students data - - ->", studentsData);
   useEffect(() => {
-    getProjectsData();
+    getstudentsData();
+    getGuidesData();
   }, []);
   return (
     <div>
@@ -78,20 +99,16 @@ const HODDashboard = () => {
           <Box bg="#EBDEF0">
             <Text fontSize="lg" p="4" textAlign={"left"}>
               Welcome to HOD Dashboard,{" "}
-              <Text color="green.600" fontWeight="bold">
-                {" "}
-                {projectsData?.name}
-              </Text>
             </Text>
           </Box>
           <Box mt="12">
             {" "}
-            {projectsData && (
+            {studentsData && (
               <>
                 <Flex align="center" justify="center" direction="column">
                   <Container
                     maxW="3xl"
-                    bg="#F1F1F2"
+                    bg="#F7F1F2"
                     rounded="lg"
                     shadow="md"
                     p={8}
@@ -108,20 +125,11 @@ const HODDashboard = () => {
                         <Box mb={{ base: 4, md: 0 }}>
                           {" "}
                           <Text fontSize="md" fontWeight="small">
-                            Name
+                            Total Number of Students
                           </Text>
                           <Text color="gray.800" fontWeight="medium">
                             {" "}
-                            {projectsData?.name}
-                          </Text>
-                        </Box>
-                        <Box>
-                          {" "}
-                          <Text fontSize="md" fontWeight="small">
-                            Contact Email
-                          </Text>
-                          <Text color="gray.800" fontWeight="medium">
-                            {projectsData?.email}
+                            {studentsData?.length}
                           </Text>
                         </Box>
                       </Flex>
@@ -131,6 +139,92 @@ const HODDashboard = () => {
               </>
             )}
           </Box>
+          <TableContainer mt="8">
+            <Table variant="striped" colorScheme="red">
+              <TableCaption>All Students List</TableCaption>
+              <Thead>
+                <Tr>
+                  <Th>Group No.</Th>
+                  <Th>Name</Th>
+                  <Th>Email</Th>
+                  <Th>Contact Number</Th>
+                  <Th>Project Status</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                <StudentsList studentsData={studentsData} />
+              </Tbody>
+              <Tfoot>
+                <Tr>
+                  <Th>Total Students={studentsData?.length}</Th>
+                </Tr>
+              </Tfoot>
+            </Table>
+          </TableContainer>
+          <Box mt="12">
+            {" "}
+            {studentsData && (
+              <>
+                <Flex align="center" justify="center" direction="column">
+                  <Container
+                    maxW="3xl"
+                    bg="#F7F1F2"
+                    rounded="lg"
+                    shadow="md"
+                    p={8}
+                    width="full"
+                  >
+                    <VStack align="start" spacing={6}>
+                      {/* Guide DETAILS */}
+                      <Flex
+                        direction={{ base: "column", md: "row" }}
+                        align="start"
+                        justify={{ base: "start", md: "space-between" }}
+                        w="full"
+                      >
+                        <Box mb={{ base: 4, md: 0 }}>
+                          {" "}
+                          <Text fontSize="md" fontWeight="small">
+                            Total Number of Guides
+                          </Text>
+                          <Text color="gray.800" fontWeight="medium">
+                            {" "}
+                            {guidesData?.length}
+                          </Text>
+                        </Box>
+                      </Flex>
+                    </VStack>
+                  </Container>
+                </Flex>
+              </>
+            )}
+          </Box>
+          <TableContainer mt="8">
+            <Table variant="striped" colorScheme="red">
+              <TableCaption>All Guides List</TableCaption>
+              <Thead>
+                <Tr>
+                  <Th>Sr.no.</Th>
+                  <Th>Name</Th>
+                  <Th>Email</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {guidesData?.map((el, i) => (
+                  <Tr _hover={{ color: "red" }} key={i + 1}>
+                    <Td>{i + 1}</Td>
+                    <Td>{el.name}</Td>
+                    <Td>{el.email}</Td>
+                  </Tr>
+                ))}
+              </Tbody>
+              <Tfoot>
+                <Tr>
+                  <Th>Total Guides={guidesData?.length}</Th>
+                </Tr>
+              </Tfoot>
+            </Table>
+          </TableContainer>
         </Box>
       </Box>
     </div>

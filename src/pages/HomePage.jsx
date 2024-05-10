@@ -41,12 +41,11 @@ const HomePage = () => {
   const getAllUpdates = async () => {
     try {
       const response = await axios.get(
-        `https://sore-plum-rooster-belt.cyclic.app/updates/allupdates`
+        `http://localhost:8000/updates/allupdates`
       );
       console.log("updates data", response);
-
-      if (response.status == 200) {
-        setUpdates(response.data);
+      if (response.status === 200) {
+        setUpdates(response.data.slice(-4));
       }
     } catch (err) {
       console.log(err);

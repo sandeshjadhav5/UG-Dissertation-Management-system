@@ -115,7 +115,7 @@ const HODSidebar = () => {
         </NavItem> */}
         <NavItem icon={FaHandsHelping}>
           {" "}
-          <Link to="/allprojectslist">All projects</Link>
+          <Link to="/hoddashboard">Dashboard</Link>
         </NavItem>
         <NavItem icon={FaHandsHelping}>
           {" "}

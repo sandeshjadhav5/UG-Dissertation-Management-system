@@ -2,29 +2,48 @@ import React from "react";
 import { Box, Grid, Heading } from "@chakra-ui/react";
 
 const dummyProjects = [
-  { id: 1, name: "Attendance Management System" },
-  { id: 2, name: "Chat App" },
-  { id: 3, name: "Task Manager" },
-  { id: 4, name: "E-commerce Website" },
-  { id: 5, name: "Project Management Tool" },
-  { id: 6, name: "Event Booking System" },
-  { id: 7, name: "Blog Platform" },
-  { id: 8, name: "To-Do List Application" },
-  { id: 9, name: "Inventory Management System" },
-  { id: 10, name: "Recipe Sharing App" },
-  { id: 11, name: "Social Media Dashboard" },
-  { id: 12, name: "Budget Tracker" },
-  { id: 13, name: "Weather App" },
-  { id: 14, name: "Music Player" },
-  { id: 15, name: "Fitness Tracker" },
-  { id: 16, name: "Online Learning Platform" },
-  { id: 17, name: "Travel Planner" },
-  { id: 18, name: "Job Search Portal" },
-  { id: 19, name: "Language Learning App" },
-  { id: 20, name: "Appointment Scheduling System" },
+  { id: 1, name: "Attendance Management System", category: "Web Development" },
+  { id: 2, name: "Chat App", category: "Mobile Development" },
+  { id: 3, name: "Task Manager", category: "Web Development" },
+  { id: 4, name: "E-commerce Website", category: "Web Development" },
+  { id: 5, name: "Project Management Tool", category: "Web Development" },
+  { id: 6, name: "Event Booking System", category: "Web Development" },
+  { id: 7, name: "Blog Platform", category: "Web Development" },
+  { id: 8, name: "To-Do List Application", category: "Mobile Development" },
+  { id: 9, name: "Inventory Management System", category: "Web Development" },
+  { id: 10, name: "Recipe Sharing App", category: "Mobile Development" },
+  { id: 11, name: "Social Media Dashboard", category: "Web Development" },
+  { id: 12, name: "Budget Tracker", category: "Web Development" },
+  { id: 13, name: "Weather App", category: "Mobile Development" },
+  { id: 14, name: "Music Player", category: "Mobile Development" },
+  { id: 15, name: "Fitness Tracker", category: "Mobile Development" },
+  { id: 16, name: "Online Learning Platform", category: "Web Development" },
+  { id: 17, name: "Travel Planner", category: "Mobile Development" },
+  { id: 18, name: "Job Search Portal", category: "Web Development" },
+  { id: 19, name: "Language Learning App", category: "Mobile Development" },
+  {
+    id: 20,
+    name: "Appointment Scheduling System",
+    category: "Web Development",
+  },
+  { id: 21, name: "Video Streaming App", category: "Mobile Development" },
+  { id: 22, name: "Social Networking Site", category: "Web Development" },
+  { id: 23, name: "Task Scheduler", category: "Web Development" },
+  { id: 24, name: "Real Estate Listing Website", category: "Web Development" },
+  { id: 25, name: "Virtual Event Platform", category: "Web Development" },
+  { id: 26, name: "Expense Tracker", category: "Mobile Development" },
+  { id: 27, name: "Online Marketplace", category: "Web Development" },
+  { id: 28, name: "Fitness Coaching App", category: "Mobile Development" },
+  { id: 29, name: "Document Management System", category: "Web Development" },
+  { id: 30, name: "Music Streaming Service", category: "Mobile Development" },
 ];
 
 const ProjectsList = () => {
+  // Function to filter projects by category
+  const getProjectsByCategory = (category) => {
+    return dummyProjects.filter((project) => project.category === category);
+  };
+
   return (
     <Box
       p={4}
@@ -45,33 +64,72 @@ const ProjectsList = () => {
       >
         Existing Projects List
       </Heading>
-      <Grid
-        mt="4"
-        templateColumns={{
-          base: "repeat(2, 1fr)",
-          md: "repeat(3, 1fr)",
-          lg: "repeat(3, 1fr)",
-        }}
-        gap={4}
-      >
-        {dummyProjects.map((project) => (
-          <Box
-            bg="white"
-            key={project.id}
-            p={4}
-            borderWidth="1px"
-            borderRadius="lg"
-            _hover={{
-              boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-            }}
-          >
-            <Heading as="h2" size="md" mb={2}>
-              {project.name}
-            </Heading>
-            {/* Additional project details can be added here */}
-          </Box>
-        ))}
-      </Grid>
+
+      {/* Web Development Projects */}
+      <Box mt={8}>
+        <Heading textAlign={"center"} as="h2" size="md" mb={4}>
+          Web Development Projects
+        </Heading>
+        <Grid
+          templateColumns={{
+            base: "repeat(2, 1fr)",
+            md: "repeat(3, 1fr)",
+            lg: "repeat(3, 1fr)",
+          }}
+          gap={4}
+        >
+          {getProjectsByCategory("Web Development").map((project) => (
+            <Box
+              bg="white"
+              key={project.id}
+              p={4}
+              borderWidth="1px"
+              borderRadius="lg"
+              _hover={{
+                boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+              }}
+            >
+              <Heading as="h3" size="sm" mb={2}>
+                {project.name}
+              </Heading>
+            </Box>
+          ))}
+        </Grid>
+      </Box>
+
+      {/* Mobile Development Projects */}
+      <Box mt={8}>
+        <Heading textAlign={"center"} as="h2" size="md" mb={4}>
+          Mobile Development Projects
+        </Heading>
+        <Grid
+          templateColumns={{
+            base: "repeat(2, 1fr)",
+            md: "repeat(3, 1fr)",
+            lg: "repeat(3, 1fr)",
+          }}
+          gap={4}
+        >
+          {getProjectsByCategory("Mobile Development").map((project) => (
+            <Box
+              bg="white"
+              key={project.id}
+              p={4}
+              borderWidth="1px"
+              borderRadius="lg"
+              _hover={{
+                boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+              }}
+            >
+              <Heading as="h3" size="sm" mb={2}>
+                {project.name}
+              </Heading>
+            </Box>
+          ))}
+        </Grid>
+      </Box>
+
+      {/* Add more categories as needed */}
     </Box>
   );
 };

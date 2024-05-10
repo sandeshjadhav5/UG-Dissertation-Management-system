@@ -49,6 +49,7 @@ export default function HODLogin() {
           status: "success",
           isClosable: true,
         });
+        navigate("/hoddashboard");
         setLoading(false);
       }
     } catch (err) {

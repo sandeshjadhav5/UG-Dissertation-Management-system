@@ -39,7 +39,7 @@ const GuideStudents = () => {
   const guideProfileData = async () => {
     try {
       const response = await axios.get(
-        `https://sore-plum-rooster-belt.cyclic.app/guide/profile/${guideId}`
+        `http://localhost:8000/guide/profile/${guideId}`
       );
       console.log("profile data", response);
 
@@ -54,7 +54,7 @@ const GuideStudents = () => {
   const getStudentsAssigned = async () => {
     try {
       const response = await axios.get(
-        `https://sore-plum-rooster-belt.cyclic.app/guide/${guideId}/students`
+        `http://localhost:8000/guide/${guideId}/students`
       );
       console.log("profile data", response);
 
@@ -67,15 +67,7 @@ const GuideStudents = () => {
   };
 
   console.log("students assignend", studentsAssigned);
-  // Static student data
-  const students = [
-    { id: 1, name: "Somnath Chavan", email: "somnath@example.com" },
-    { id: 2, name: "Dinesh Patil", email: "dinesh@example.com" },
-    { id: 3, name: "Somnath Chavan", email: "somnath@example.com" },
-    { id: 4, name: "Dinesh Patil", email: "dinesh@example.com" },
-    { id: 5, name: "Somnath Chavan", email: "somnath@example.com" },
-    { id: 6, name: "Dinesh Patil", email: "dinesh@example.com" },
-  ];
+
   useEffect(() => {
     getStudentsAssigned();
     // guideProfileData();

@@ -41,7 +41,7 @@ export default function GuideLogin() {
     try {
       setLoading(true);
       const response = await axios.post(
-        `https://sore-plum-rooster-belt.cyclic.app/guide/login`,
+        `http://localhost:8000/guide/login`,
         payload
       );
       if (response.status === 201) {

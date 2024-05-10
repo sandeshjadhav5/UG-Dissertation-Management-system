@@ -48,9 +48,7 @@ const YourGuide = () => {
 
   const getGuidesData = async () => {
     try {
-      const response = await axios.get(
-        `https://sore-plum-rooster-belt.cyclic.app/guide/all`
-      );
+      const response = await axios.get(`http://localhost:8000/guide/all`);
       console.log("Guides data", response);
 
       if (response.status == 200) {
@@ -92,7 +90,7 @@ const YourGuide = () => {
     setLoading(true);
     try {
       const response = await axios.patch(
-        `https://sore-plum-rooster-belt.cyclic.app/users/profile/${userId}`,
+        `http://localhost:8000/users/profile/${userId}`,
         payload
       );
       console.log("updated data is", response);
@@ -127,7 +125,7 @@ const YourGuide = () => {
 
       setLoading(true);
       const response = await axios.patch(
-        `https://sore-plum-rooster-belt.cyclic.app/guide//add-student/${selectedGuide}/${userId}`
+        `http://localhost:8000/guide/add-student/${selectedGuide}/${userId}`
       );
 
       console.log("Updated data is", response);

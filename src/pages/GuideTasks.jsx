@@ -28,12 +28,13 @@ const GuideTasks = () => {
     description: "",
     deadline: "",
   });
+  const toast = useToast();
 
   const guideId = localStorage.getItem("guideId") || null;
   const guideProfileData = async () => {
     try {
       const response = await axios.get(
-        `https://sore-plum-rooster-belt.cyclic.app/guide/profile/${guideId}`
+        `http://localhost:8000/guide/profile/${guideId}`
       );
       console.log("profile data", response);
 
@@ -55,7 +56,7 @@ const GuideTasks = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `https://sore-plum-rooster-belt.cyclic.app/guide/create-task`,
+        `http://localhost:8000/guide/create-task/${guideId}`,
         {
           ...taskData,
           assignedTo: userId,
@@ -65,9 +66,19 @@ const GuideTasks = () => {
       if (response.status === 201) {
         // Reset task form fields after successful submission
         setTaskData({ title: "", description: "", deadline: "" });
+        toast({
+          title: `Task Created`,
+          status: "success",
+          isClosable: true,
+        });
       }
     } catch (err) {
       console.log(err);
+      toast({
+        title: `Failed to Create Task`,
+        status: "error",
+        isClosable: true,
+      });
     }
   };
 

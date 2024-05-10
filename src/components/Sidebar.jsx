@@ -137,6 +137,10 @@ const Sidebar = () => {
           {" "}
           <Link to="/allqueries">All Queries</Link>
         </NavItem>
+        <NavItem icon={FaClipboardCheck}>
+          {" "}
+          <Link to="/tasks">Tasks</Link>
+        </NavItem>
       </Flex>
     </Box>
   );

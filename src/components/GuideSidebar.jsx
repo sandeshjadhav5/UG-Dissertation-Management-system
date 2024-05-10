@@ -110,9 +110,9 @@ const GuideSidebar = () => {
         color="gray.600"
         aria-label="Main Navigation"
       >
-        {/* <NavItem icon={MdHome}>
+        <NavItem icon={MdHome}>
           <Link to="/guidedashboard">Home</Link>
-        </NavItem> */}
+        </NavItem>
         <NavItem icon={FaHandsHelping}>
           {" "}
           <Link to="/guidestudents">Your Students</Link>

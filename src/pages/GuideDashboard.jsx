@@ -34,10 +34,11 @@ import Navbar from "../components/Navbar";
 const GuideDashboard = () => {
   const [profileData, setProfileData] = useState([]);
   const guideId = localStorage.getItem("guideId") || null;
+  console.log("guideId is", guideId);
   const guideProfileData = async () => {
     try {
       const response = await axios.get(
-        `https://sore-plum-rooster-belt.cyclic.app/guide/profile/${guideId}`
+        `http://localhost:8000/guide/profile/${guideId}`
       );
       console.log("profile data", response);
 
