@@ -45,7 +45,7 @@ const HODDashboard = () => {
   const getstudentsData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/users/allstudents`
+        `https://sore-plum-rooster-belt.cyclic.app/users/allstudents`
       );
       console.log("students data", response);
 
@@ -59,7 +59,9 @@ const HODDashboard = () => {
 
   const getGuidesData = async () => {
     try {
-      const response = await axios.get(`http://localhost:8000/guide/all`);
+      const response = await axios.get(
+        `https://sore-plum-rooster-belt.cyclic.app/guide/all`
+      );
       console.log("guides data", response);
 
       if (response.status == 200) {

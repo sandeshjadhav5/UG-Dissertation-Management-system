@@ -46,7 +46,7 @@ export default function SignUp() {
     try {
       setLoading(true);
       const response = await axios.post(
-        `http://localhost:8000/users/register`,
+        `https://sore-plum-rooster-belt.cyclic.app/users/register`,
         payload
       );
       console.log("group added", response);

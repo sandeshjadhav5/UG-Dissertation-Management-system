@@ -51,7 +51,7 @@ const CreateUpdate = () => {
   const getAllUpdates = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/updates/allupdates`
+        `https://sore-plum-rooster-belt.cyclic.app/updates/allupdates`
       );
       console.log("updates data", response);
       if (response.status === 200) {

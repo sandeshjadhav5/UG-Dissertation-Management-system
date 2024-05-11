@@ -36,7 +36,7 @@ const AdminDashboard = () => {
   const AdminProfileDat = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/Admin/profile/$AdminId}`
+        `https://sore-plum-rooster-belt.cyclic.app/Admin/profile/$AdminId}`
       );
       console.log("profile data", response);
 

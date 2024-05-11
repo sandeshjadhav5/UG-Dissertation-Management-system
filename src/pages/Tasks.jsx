@@ -27,7 +27,7 @@ const Tasks = () => {
   const getTasks = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/guide/tasks/${guideId}`
+        `https://sore-plum-rooster-belt.cyclic.app/guide/tasks/${guideId}`
       );
       console.log("tasks ==>", response.data);
       if (response.status == 200) {
@@ -42,7 +42,7 @@ const Tasks = () => {
   const getUserProfileData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/users/profile/${userId}`
+        `https://sore-plum-rooster-belt.cyclic.app/users/profile/${userId}`
       );
       console.log("profile data", response);
 

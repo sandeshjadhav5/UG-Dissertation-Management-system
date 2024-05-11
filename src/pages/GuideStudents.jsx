@@ -39,7 +39,7 @@ const GuideStudents = () => {
   const guideProfileData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/guide/profile/${guideId}`
+        `https://sore-plum-rooster-belt.cyclic.app/guide/profile/${guideId}`
       );
       console.log("profile data", response);
 
@@ -54,7 +54,7 @@ const GuideStudents = () => {
   const getStudentsAssigned = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/guide/${guideId}/students`
+        `https://sore-plum-rooster-belt.cyclic.app/guide/${guideId}/students`
       );
       console.log("profile data", response);
 

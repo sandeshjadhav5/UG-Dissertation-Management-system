@@ -36,7 +36,7 @@ const ManageProgress = () => {
     e.preventDefault();
     try {
       const response = await axios.patch(
-        `http://localhost:8000/users/update-project-status/${userId}`,
+        `https://sore-plum-rooster-belt.cyclic.app/users/update-project-status/${userId}`,
         payload
       );
       if (response.status === 200) {

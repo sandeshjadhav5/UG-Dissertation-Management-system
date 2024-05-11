@@ -60,7 +60,7 @@ const CreateUpdate = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        `http://localhost:8000/updates/createupdate`,
+        `https://sore-plum-rooster-belt.cyclic.app/updates/createupdate`,
         payload
       );
       console.log("task created", response);
