@@ -1,5 +1,15 @@
-import React from "react";
-import { Box, Grid, Heading } from "@chakra-ui/react";
+import React, { useState } from "react";
+import {
+  Box,
+  Grid,
+  Heading,
+  Input,
+  Button,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+} from "@chakra-ui/react";
 
 const dummyProjects = [
   { id: 1, name: "Attendance Management System", category: "Web Development" },
@@ -42,6 +52,20 @@ const ProjectsList = () => {
   // Function to filter projects by category
   const getProjectsByCategory = (category) => {
     return dummyProjects.filter((project) => project.category === category);
+  };
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResult, setSearchResult] = useState("");
+
+  const handleSearch = () => {
+    const foundProject = dummyProjects.find(
+      (project) => project.name.toLowerCase() === searchTerm.toLowerCase()
+    );
+    if (foundProject) {
+      setSearchResult(`Project "${searchTerm}" already exists.`);
+    } else {
+      setSearchResult(`Project "${searchTerm}" not found.`);
+    }
   };
 
   return (
@@ -129,7 +153,32 @@ const ProjectsList = () => {
         </Grid>
       </Box>
 
-      {/* Add more categories as needed */}
+      <Box mt="8" p="4" bg="white" mb={4} display="flex" alignItems="center">
+        <Input
+          placeholder="Search for a project..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          mr={4}
+        />
+        <Button colorScheme="blue" onClick={handleSearch}>
+          Search
+        </Button>
+      </Box>
+
+      {searchResult && (
+        <Alert
+          status={searchResult.includes("not found") ? "success" : "error"}
+          mb={4}
+        >
+          <AlertIcon />
+          <AlertTitle mr={2}>
+            {searchResult.includes("not found")
+              ? "Project Not Found"
+              : "Already Present"}
+          </AlertTitle>
+          <AlertDescription>{searchResult}</AlertDescription>
+        </Alert>
+      )}
     </Box>
   );
 };
