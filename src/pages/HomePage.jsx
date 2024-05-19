@@ -41,7 +41,7 @@ const HomePage = () => {
   const getAllUpdates = async () => {
     try {
       const response = await axios.get(
-        `https://sore-plum-rooster-belt.cyclic.app/updates/allupdates`
+        `http://localhost:8000/updates/allupdates`
       );
       console.log("updates data", response);
       if (response.status === 200) {
@@ -104,10 +104,10 @@ const HomePage = () => {
                 }}
                 mx="auto"
                 textAlign={{
-                  base: "left",
                   md: "center",
                 }}
               >
+                base: "left",
                 <chakra.h1
                   mb={6}
                   fontSize={{

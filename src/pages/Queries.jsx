@@ -18,7 +18,7 @@ const Queries = () => {
 
     try {
       await axios.post(
-        `https://sore-plum-rooster-belt.cyclic.app/users/students/${userId}/add-query`,
+        `http://localhost:8000/users/students/${userId}/add-query`,
         {
           query,
           guideId,
@@ -36,7 +36,7 @@ const Queries = () => {
   const getUserProfileData = async () => {
     try {
       const response = await axios.get(
-        `https://sore-plum-rooster-belt.cyclic.app/users/profile/${userId}`
+        `http://localhost:8000/users/profile/${userId}`
       );
       console.log("profile data", response);
 

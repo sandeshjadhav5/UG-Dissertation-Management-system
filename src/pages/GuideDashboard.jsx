@@ -38,7 +38,7 @@ const GuideDashboard = () => {
   const guideProfileData = async () => {
     try {
       const response = await axios.get(
-        `https://sore-plum-rooster-belt.cyclic.app/guide/profile/${guideId}`
+        `http://localhost:8000/guide/profile/${guideId}`
       );
       console.log("profile data", response);
 

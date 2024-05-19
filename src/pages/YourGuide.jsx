@@ -32,6 +32,7 @@ const YourGuide = () => {
   const [teamMembers, setTeamMembers] = useState([]);
   const [memberName, setMemberName] = useState("");
   const [memberRollNumber, setMemberRollNumber] = useState("");
+  const [studentProfileData, setStudentProfileData] = useState([]);
   const userId = localStorage.getItem("userId") || null;
   const toast = useToast();
 
@@ -48,9 +49,7 @@ const YourGuide = () => {
 
   const getGuidesData = async () => {
     try {
-      const response = await axios.get(
-        `https://sore-plum-rooster-belt.cyclic.app/guide/all`
-      );
+      const response = await axios.get(`http://localhost:8000/guide/all`);
       console.log("Guides data", response);
 
       if (response.status == 200) {
@@ -62,6 +61,21 @@ const YourGuide = () => {
     }
   };
 
+  const getStudentProfileData = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8000/users/profile/${userId}`
+      );
+      console.log("studentProfileData data", response);
+
+      if (response.status == 201) {
+        setStudentProfileData(response.data);
+        console.log("studentProfileData:", studentProfileData);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
   const handleSubmitForm = (e) => {
     e.preventDefault();
     const selectedGuideName = selectedGuide;
@@ -92,7 +106,7 @@ const YourGuide = () => {
     setLoading(true);
     try {
       const response = await axios.patch(
-        `https://sore-plum-rooster-belt.cyclic.app/users/profile/${userId}`,
+        `http://localhost:8000/users/profile/${userId}`,
         payload
       );
       console.log("updated data is", response);
@@ -127,7 +141,7 @@ const YourGuide = () => {
 
       setLoading(true);
       const response = await axios.patch(
-        `https://sore-plum-rooster-belt.cyclic.app/guide/add-student/${selectedGuide}/${userId}`
+        `http://localhost:8000/guide/add-student/${selectedGuide}/${userId}`
       );
 
       console.log("Updated data is", response);
@@ -160,6 +174,7 @@ const YourGuide = () => {
 
   useEffect(() => {
     getGuidesData();
+    getStudentProfileData();
   }, []);
   return (
     <div>

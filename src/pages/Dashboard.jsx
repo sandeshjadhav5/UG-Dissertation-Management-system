@@ -36,7 +36,7 @@ const Dashboard = () => {
   const getUserProfileData = async () => {
     try {
       const response = await axios.get(
-        `https://sore-plum-rooster-belt.cyclic.app/users/profile/${userId}`
+        `http://localhost:8000/users/profile/${userId}`
       );
       console.log("profile data", response);
 
