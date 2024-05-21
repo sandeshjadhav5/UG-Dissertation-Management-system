@@ -33,6 +33,7 @@ const YourGuide = () => {
   const [memberName, setMemberName] = useState("");
   const [memberRollNumber, setMemberRollNumber] = useState("");
   const [studentProfileData, setStudentProfileData] = useState([]);
+  const [singleGuideData, setSingleGuide] = useState([]);
   const userId = localStorage.getItem("userId") || null;
   const toast = useToast();
 
@@ -61,16 +62,30 @@ const YourGuide = () => {
     }
   };
 
+  const getSingleGuideData = async (idToBeUsedForGettingGuideProfile) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8000/guide/profile/${idToBeUsedForGettingGuideProfile}`
+      );
+      console.log("single guide ", response.data);
+      setSingleGuide(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const getStudentProfileData = async () => {
     try {
       const response = await axios.get(
         `http://localhost:8000/users/profile/${userId}`
       );
-      console.log("studentProfileData data", response);
 
       if (response.status == 201) {
         setStudentProfileData(response.data);
-        console.log("studentProfileData:", studentProfileData);
+
+        setTimeout(() => {
+          getSingleGuideData(studentProfileData?.guide);
+        }, 6000);
       }
     } catch (err) {
       console.log(err);
@@ -176,6 +191,8 @@ const YourGuide = () => {
     getGuidesData();
     getStudentProfileData();
   }, []);
+
+  console.log("studentProfileData:", studentProfileData);
   return (
     <div>
       <Box>
@@ -196,292 +213,330 @@ const YourGuide = () => {
         >
           <Navbar />
           {/* -------------------------------- YOUR GUIDE STARTS HERE ---------------------------- */}
-          <Box p="4">
-            <form onSubmit={handleSubmitForm}>
-              <Box pt={4}>
-                {/* ----------------------- Information form starts here------------------------------ */}
-                <Box bg="#add8e6" p={4} rounded={4}>
-                  <SimpleGrid
-                    display={{
-                      base: "initial",
-                      md: "grid",
-                    }}
-                    columns={{
-                      md: 3,
-                    }}
-                    spacing={{
-                      md: 6,
-                    }}
-                  >
-                    {/* GUIDE INFO */}
-                    <GridItem
-                      mt="2"
-                      colSpan={{
-                        md: 1,
+          {!studentProfileData.teamMembers && (
+            <Box p="4">
+              <form onSubmit={handleSubmitForm}>
+                <Box pt={4}>
+                  {/* ----------------------- Information form starts here------------------------------ */}
+                  <Box bg="#add8e6" p={4} rounded={4}>
+                    <SimpleGrid
+                      display={{
+                        base: "initial",
+                        md: "grid",
+                      }}
+                      columns={{
+                        md: 3,
+                      }}
+                      spacing={{
+                        md: 6,
                       }}
                     >
-                      <Box px={[4, 1]}>
-                        <Heading fontSize="2xl" fontWeight="lg" lineHeight="6">
-                          Guide Information
-                        </Heading>
-                        <Text mt={1} fontSize="sm">
-                          Provide guide details
-                        </Text>
-                      </Box>
-                    </GridItem>
-
-                    <GridItem
-                      mt={{ base: "10px", md: "10px", xl: "0px" }}
-                      colSpan={{
-                        md: 2,
-                      }}
-                    >
-                      <Box
-                        shadow="base"
-                        rounded={[null, "md"]}
-                        overflow={{
-                          sm: "hidden",
+                      {/* GUIDE INFO */}
+                      <GridItem
+                        mt="2"
+                        colSpan={{
+                          md: 1,
                         }}
                       >
-                        <Stack
-                          px={4}
-                          py={5}
-                          bg="beige"
-                          _dark={{
-                            bg: "#2D3748",
-                          }}
-                          spacing={6}
-                          p={{
-                            sm: 6,
+                        <Box px={[4, 1]}>
+                          <Heading
+                            fontSize="2xl"
+                            fontWeight="lg"
+                            lineHeight="6"
+                          >
+                            Guide Information
+                          </Heading>
+                          <Text mt={1} fontSize="sm">
+                            Provide guide details
+                          </Text>
+                        </Box>
+                      </GridItem>
+
+                      <GridItem
+                        mt={{ base: "10px", md: "10px", xl: "0px" }}
+                        colSpan={{
+                          md: 2,
+                        }}
+                      >
+                        <Box
+                          shadow="base"
+                          rounded={[null, "md"]}
+                          overflow={{
+                            sm: "hidden",
                           }}
                         >
-                          <SimpleGrid columns={3} spacing={6}>
-                            <Box as={GridItem} colSpan={[3, 2]}>
-                              <FormLabel>
-                                Guide Name{" "}
-                                <span style={{ color: "red" }}>*</span>
-                              </FormLabel>
-                              <InputGroup>
-                                <Select
+                          <Stack
+                            px={4}
+                            py={5}
+                            bg="beige"
+                            _dark={{
+                              bg: "#2D3748",
+                            }}
+                            spacing={6}
+                            p={{
+                              sm: 6,
+                            }}
+                          >
+                            <SimpleGrid columns={3} spacing={6}>
+                              <Box as={GridItem} colSpan={[3, 2]}>
+                                <FormLabel>
+                                  Guide Name{" "}
+                                  <span style={{ color: "red" }}>*</span>
+                                </FormLabel>
+                                <InputGroup>
+                                  <Select
+                                    color="#322659"
+                                    _dark={{ color: "white" }}
+                                    onChange={(e) => {
+                                      const selectedGuideId = e.target.value; // Store the selected guide ID
+                                      const selectedGuideObject =
+                                        guidesData.find(
+                                          (guide) =>
+                                            guide._id === selectedGuideId
+                                        );
+                                      console.log(
+                                        "Selected Guide ID:",
+                                        selectedGuideId
+                                      );
+                                      console.log(
+                                        "Selected Guide Object:",
+                                        selectedGuideObject
+                                      );
+                                      setSelectedGuide(selectedGuideId);
+                                    }}
+                                    required
+                                    focusBorderColor="brand.400"
+                                    rounded="md"
+                                    value={selectedGuide}
+                                  >
+                                    <option>Select Guide</option>
+                                    {guidesData.map((guide) => (
+                                      <option key={guide._id} value={guide._id}>
+                                        {guide.name}
+                                      </option>
+                                    ))}
+                                  </Select>
+                                </InputGroup>
+                              </Box>
+                            </SimpleGrid>
+                          </Stack>
+                        </Box>
+                      </GridItem>
+                      {/* TEAM MEMBERS INFO */}
+                      <GridItem
+                        mt="2"
+                        colSpan={{
+                          md: 1,
+                        }}
+                      >
+                        <Box px={[4, 1]}>
+                          <Heading
+                            fontSize="2xl"
+                            fontWeight="lg"
+                            lineHeight="6"
+                          >
+                            Team Members
+                          </Heading>
+                          <Text mt={1} fontSize="sm">
+                            Add team members
+                          </Text>
+                        </Box>
+                      </GridItem>
+                      <GridItem
+                        mt={{ base: "10px", md: "10px", xl: "0px" }}
+                        colSpan={{
+                          md: 2,
+                        }}
+                      >
+                        <Box
+                          shadow="base"
+                          rounded={[null, "md"]}
+                          overflow={{
+                            sm: "hidden",
+                          }}
+                        >
+                          <Stack
+                            px={4}
+                            py={5}
+                            bg="beige"
+                            _dark={{
+                              bg: "#2D3748",
+                            }}
+                            spacing={6}
+                            p={{
+                              sm: 6,
+                            }}
+                          >
+                            <SimpleGrid columns={3} spacing={6}>
+                              <Box as={GridItem} colSpan={[3, 2]}>
+                                <FormLabel>Team Members</FormLabel>
+                                <Stack spacing={4}>
+                                  {teamMembers.map((member, index) => (
+                                    <Flex key={index} align="center">
+                                      <Text>Name: {member.name}</Text>
+                                      <Spacer />
+                                      <Text>
+                                        Roll Number: {member.rollNumber}
+                                      </Text>
+                                      <IconButton
+                                        colorScheme="red"
+                                        ml="4"
+                                        icon={<FaTrash />}
+                                        aria-label="Delete"
+                                        onClick={() => removeMember(index)}
+                                      />
+                                    </Flex>
+                                  ))}
+                                </Stack>
+                              </Box>
+
+                              <Box as={GridItem} colSpan={[3, 2]}>
+                                <FormLabel>Name</FormLabel>
+                                <Input
                                   color="#322659"
                                   _dark={{ color: "white" }}
-                                  onChange={(e) => {
-                                    const selectedGuideId = e.target.value; // Store the selected guide ID
-                                    const selectedGuideObject = guidesData.find(
-                                      (guide) => guide._id === selectedGuideId
-                                    );
-                                    console.log(
-                                      "Selected Guide ID:",
-                                      selectedGuideId
-                                    );
-                                    console.log(
-                                      "Selected Guide Object:",
-                                      selectedGuideObject
-                                    );
-                                    setSelectedGuide(selectedGuideId);
-                                  }}
+                                  onChange={(e) =>
+                                    setMemberName(e.target.value)
+                                  }
                                   required
+                                  type="text"
+                                  placeholder="Enter Name"
                                   focusBorderColor="brand.400"
                                   rounded="md"
-                                  value={selectedGuide}
+                                />
+                              </Box>
+                              <Box as={GridItem} colSpan={[3, 2]}>
+                                <FormLabel>Roll Number</FormLabel>
+                                <Input
+                                  color="#322659"
+                                  _dark={{ color: "white" }}
+                                  onChange={(e) =>
+                                    setMemberRollNumber(e.target.value)
+                                  }
+                                  required
+                                  type="text"
+                                  placeholder="Enter Roll Number"
+                                  focusBorderColor="brand.400"
+                                  rounded="md"
+                                />
+                                <Button
+                                  colorScheme="teal"
+                                  m="2"
+                                  onClick={addMember}
                                 >
-                                  <option>Select Guide</option>
-                                  {guidesData.map((guide) => (
-                                    <option key={guide._id} value={guide._id}>
-                                      {guide.name}
-                                    </option>
-                                  ))}
-                                </Select>
-                              </InputGroup>
-                            </Box>
-                          </SimpleGrid>
-                        </Stack>
-                      </Box>
-                    </GridItem>
-                    {/* TEAM MEMBERS INFO */}
-                    <GridItem
-                      mt="2"
-                      colSpan={{
-                        md: 1,
-                      }}
-                    >
-                      <Box px={[4, 1]}>
-                        <Heading fontSize="2xl" fontWeight="lg" lineHeight="6">
-                          Team Members
-                        </Heading>
-                        <Text mt={1} fontSize="sm">
-                          Add team members
-                        </Text>
-                      </Box>
-                    </GridItem>
-                    <GridItem
-                      mt={{ base: "10px", md: "10px", xl: "0px" }}
-                      colSpan={{
-                        md: 2,
-                      }}
-                    >
-                      <Box
-                        shadow="base"
-                        rounded={[null, "md"]}
-                        overflow={{
-                          sm: "hidden",
+                                  Add Member
+                                </Button>
+                              </Box>
+                            </SimpleGrid>
+                          </Stack>
+                        </Box>
+                      </GridItem>
+
+                      {/* TEAM LEAD INFO */}
+                      <GridItem
+                        mt="2"
+                        colSpan={{
+                          md: 1,
                         }}
                       >
-                        <Stack
-                          px={4}
-                          py={5}
-                          bg="beige"
-                          _dark={{
-                            bg: "#2D3748",
-                          }}
-                          spacing={6}
-                          p={{
-                            sm: 6,
-                          }}
-                        >
-                          <SimpleGrid columns={3} spacing={6}>
-                            <Box as={GridItem} colSpan={[3, 2]}>
-                              <FormLabel>Team Members</FormLabel>
-                              <Stack spacing={4}>
-                                {teamMembers.map((member, index) => (
-                                  <Flex key={index} align="center">
-                                    <Text>Name: {member.name}</Text>
-                                    <Spacer />
-                                    <Text>
-                                      Roll Number: {member.rollNumber}
-                                    </Text>
-                                    <IconButton
-                                      colorScheme="red"
-                                      ml="4"
-                                      icon={<FaTrash />}
-                                      aria-label="Delete"
-                                      onClick={() => removeMember(index)}
-                                    />
-                                  </Flex>
-                                ))}
-                              </Stack>
-                            </Box>
-
-                            <Box as={GridItem} colSpan={[3, 2]}>
-                              <FormLabel>Name</FormLabel>
-                              <Input
-                                color="#322659"
-                                _dark={{ color: "white" }}
-                                onChange={(e) => setMemberName(e.target.value)}
-                                required
-                                type="text"
-                                placeholder="Enter Name"
-                                focusBorderColor="brand.400"
-                                rounded="md"
-                              />
-                            </Box>
-                            <Box as={GridItem} colSpan={[3, 2]}>
-                              <FormLabel>Roll Number</FormLabel>
-                              <Input
-                                color="#322659"
-                                _dark={{ color: "white" }}
-                                onChange={(e) =>
-                                  setMemberRollNumber(e.target.value)
-                                }
-                                required
-                                type="text"
-                                placeholder="Enter Roll Number"
-                                focusBorderColor="brand.400"
-                                rounded="md"
-                              />
-                              <Button
-                                colorScheme="teal"
-                                m="2"
-                                onClick={addMember}
-                              >
-                                Add Member
-                              </Button>
-                            </Box>
-                          </SimpleGrid>
-                        </Stack>
-                      </Box>
-                    </GridItem>
-
-                    {/* TEAM LEAD INFO */}
-                    <GridItem
-                      mt="2"
-                      colSpan={{
-                        md: 1,
-                      }}
-                    >
-                      <Box px={[4, 1]}>
-                        <Heading fontSize="2xl" fontWeight="lg" lineHeight="6">
-                          Team Lead
-                        </Heading>
-                        <Text mt={1} fontSize="sm">
-                          Team Lead Name
-                        </Text>
-                      </Box>
-                    </GridItem>
-                    <GridItem
-                      mt={{ base: "10px", md: "10px", xl: "0px" }}
-                      colSpan={{
-                        md: 2,
-                      }}
-                    >
-                      <Box
-                        shadow="base"
-                        rounded={[null, "md"]}
-                        overflow={{
-                          sm: "hidden",
+                        <Box px={[4, 1]}>
+                          <Heading
+                            fontSize="2xl"
+                            fontWeight="lg"
+                            lineHeight="6"
+                          >
+                            Team Lead
+                          </Heading>
+                          <Text mt={1} fontSize="sm">
+                            Team Lead Name
+                          </Text>
+                        </Box>
+                      </GridItem>
+                      <GridItem
+                        mt={{ base: "10px", md: "10px", xl: "0px" }}
+                        colSpan={{
+                          md: 2,
                         }}
                       >
-                        <Stack
-                          px={4}
-                          py={5}
-                          bg="beige"
-                          _dark={{
-                            bg: "#2D3748",
-                          }}
-                          spacing={6}
-                          p={{
-                            sm: 6,
+                        <Box
+                          shadow="base"
+                          rounded={[null, "md"]}
+                          overflow={{
+                            sm: "hidden",
                           }}
                         >
-                          <SimpleGrid columns={3} spacing={6}>
-                            <Box as={GridItem} colSpan={[3, 2]}>
-                              <FormLabel>Team Lead Name</FormLabel>
-                              <Input
-                                color="#322659"
-                                _dark={{ color: "white" }}
-                                onChange={(e) => setTeamLead(e.target.value)}
-                                required
-                                type="text"
-                                placeholder="Enter Name"
-                                focusBorderColor="brand.400"
-                                rounded="md"
-                              />
-                            </Box>
-                          </SimpleGrid>
-                        </Stack>
-                      </Box>
-                    </GridItem>
-                  </SimpleGrid>{" "}
-                  <Input
-                    value={loading ? "Submitting ..." : "Submit Data"}
-                    p="2"
-                    w="100%"
-                    mt="5"
-                    fontWeight="bold"
-                    bg={"green.400"}
-                    color={"white"}
-                    _hover={{
-                      bg: "green.700",
-                      cursor: "pointer",
-                    }}
-                    type="submit"
-                  />
+                          <Stack
+                            px={4}
+                            py={5}
+                            bg="beige"
+                            _dark={{
+                              bg: "#2D3748",
+                            }}
+                            spacing={6}
+                            p={{
+                              sm: 6,
+                            }}
+                          >
+                            <SimpleGrid columns={3} spacing={6}>
+                              <Box as={GridItem} colSpan={[3, 2]}>
+                                <FormLabel>Team Lead Name</FormLabel>
+                                <Input
+                                  color="#322659"
+                                  _dark={{ color: "white" }}
+                                  onChange={(e) => setTeamLead(e.target.value)}
+                                  required
+                                  type="text"
+                                  placeholder="Enter Name"
+                                  focusBorderColor="brand.400"
+                                  rounded="md"
+                                />
+                              </Box>
+                            </SimpleGrid>
+                          </Stack>
+                        </Box>
+                      </GridItem>
+                    </SimpleGrid>{" "}
+                    <Input
+                      value={loading ? "Submitting ..." : "Submit Data"}
+                      p="2"
+                      w="100%"
+                      mt="5"
+                      fontWeight="bold"
+                      bg={"green.400"}
+                      color={"white"}
+                      _hover={{
+                        bg: "green.700",
+                        cursor: "pointer",
+                      }}
+                      type="submit"
+                    />
+                  </Box>
+
+                  {/* ---------------------- form ends here ------------------------------ */}
                 </Box>
-
-                {/* ---------------------- form ends here ------------------------------ */}
-              </Box>
-            </form>
-          </Box>
+              </form>
+            </Box>
+          )}
+          {studentProfileData.teamMembers && (
+            <Box p="4">
+              <Text>
+                Your Guide Name : <b>{singleGuideData?.name} </b>
+              </Text>
+              <Text> Guide Email : {singleGuideData?.email} </Text>
+              <br />
+              <Text>Team Members:</Text>
+              {studentProfileData &&
+                studentProfileData.teamMembers.map((el) => (
+                  <div kry={el._id}>
+                    <Text>
+                      Name : <b>{el.name}</b>, Roll No.: {el.rollNumber}
+                    </Text>
+                  </div>
+                ))}
+              <br />
+              <Text>Team Lead: {studentProfileData?.teamLead}</Text>
+            </Box>
+          )}
         </Box>
       </Box>
     </div>
