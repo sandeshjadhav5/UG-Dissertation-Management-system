@@ -21,6 +21,7 @@ import HODDashboard from "./HODDashboard";
 import CreateUpdate from "./CreateUpdate";
 import TotalUpdates from "./TotalUpdates";
 import Tasks from "./Tasks";
+import GuideProfiles from "./GuideProfiles";
 
 function MainRoutes() {
   return (
@@ -48,6 +49,7 @@ function MainRoutes() {
       <Route path="/createupdate" element={<CreateUpdate />} />
       <Route path="/totalupdates" element={<TotalUpdates />} />
       <Route path="/tasks" element={<Tasks />} />
+      <Route path="/guideprofiles" element={<GuideProfiles />} />
     </Routes>
   );
 }

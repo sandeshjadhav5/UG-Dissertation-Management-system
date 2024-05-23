@@ -121,6 +121,10 @@ const Sidebar = () => {
           {" "}
           <Link to="/yourguide">Your Guide</Link>
         </NavItem>
+        <NavItem icon={FaHandsHelping}>
+          {" "}
+          <Link to="/guideprofiles">Guide Profiles</Link>
+        </NavItem>
         <NavItem icon={MdCreate}>
           {" "}
           <Link to="/manageprogress">Manage Progress</Link>

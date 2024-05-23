@@ -80,12 +80,12 @@ const YourGuide = () => {
         `http://localhost:8000/users/profile/${userId}`
       );
 
-      if (response.status == 201) {
+      if (response.status == 200) {
         setStudentProfileData(response.data);
-
-        setTimeout(() => {
-          getSingleGuideData(studentProfileData?.guide);
-        }, 6000);
+        console.log("student prodile data ==>", response.data);
+        // setTimeout(() => {
+        //   getSingleGuideData(studentProfileData.guide);
+        // }, 6000);
       }
     } catch (err) {
       console.log(err);
@@ -213,7 +213,7 @@ const YourGuide = () => {
         >
           <Navbar />
           {/* -------------------------------- YOUR GUIDE STARTS HERE ---------------------------- */}
-          {!studentProfileData.teamMembers && (
+          {studentProfileData?.teamMembers?.length == 0 && (
             <Box p="4">
               <form onSubmit={handleSubmitForm}>
                 <Box pt={4}>
@@ -313,6 +313,10 @@ const YourGuide = () => {
                                     {guidesData.map((guide) => (
                                       <option key={guide._id} value={guide._id}>
                                         {guide.name}
+                                        <br />
+                                        {guide.education}
+                                        <br />
+                                        {guide.speciality}
                                       </option>
                                     ))}
                                   </Select>
