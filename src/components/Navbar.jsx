@@ -12,6 +12,7 @@ import {
   IconButton,
   CloseButton,
   Image,
+  Text,
   useToast,
 } from "@chakra-ui/react";
 
@@ -97,6 +98,11 @@ const Navbar = () => {
                   </Button>
                 </>
               )}
+              {isAuth && (
+                <Text border={"solid green 2px"} p="2" color={"green.400"}>
+                  {localStorage.getItem("studentProfileData")}
+                </Text>
+              )}
             </HStack>
 
             <Box
@@ -143,6 +149,9 @@ const Navbar = () => {
                 <Link to="/aboutus">
                   <Button variant="ghost">About us </Button>
                 </Link>{" "}
+                {isAuth && (
+                  <Text>{localStorage.getItem("studentProfileData")}</Text>
+                )}
                 {isAuth ? (
                   <Button variant="ghost">
                     <Link to="/dashboard">Dashboard</Link>

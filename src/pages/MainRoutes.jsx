@@ -22,6 +22,7 @@ import CreateUpdate from "./CreateUpdate";
 import TotalUpdates from "./TotalUpdates";
 import Tasks from "./Tasks";
 import GuideProfiles from "./GuideProfiles";
+import GuidesAndStudents from "./GuidesAndStudents";
 
 function MainRoutes() {
   return (
@@ -50,6 +51,7 @@ function MainRoutes() {
       <Route path="/totalupdates" element={<TotalUpdates />} />
       <Route path="/tasks" element={<Tasks />} />
       <Route path="/guideprofiles" element={<GuideProfiles />} />
+      <Route path="/guidesandstudents" element={<GuidesAndStudents />} />
     </Routes>
   );
 }

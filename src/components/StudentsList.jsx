@@ -30,9 +30,7 @@ const StudentsList = ({ studentsData }) => {
       {studentsData?.map((el, i) => (
         <Tr _hover={{ color: "red" }} key={i + 1}>
           <Td>{el.groupNumber}</Td>
-          <Td>
-            <Link to={`/allpolicies/${el._id}`}>{el.name}</Link>
-          </Td>
+          <Td>{el.name}</Td>
           <Td>{el.email}</Td>
 
           <Td>{el.contactNumber}</Td>

@@ -125,6 +125,10 @@ const HODSidebar = () => {
           {" "}
           <Link to="/totalupdates">Updates</Link>
         </NavItem>
+        {/* <NavItem icon={FaHandsHelping}>
+          {" "}
+          <Link to="/guidesandstudents">Guide with students</Link>
+        </NavItem> */}
         <NavItem onClick={handleHODLogout} icon={FaHandsHelping}>
           Logout
         </NavItem>

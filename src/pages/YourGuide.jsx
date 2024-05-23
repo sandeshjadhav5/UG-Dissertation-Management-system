@@ -83,6 +83,7 @@ const YourGuide = () => {
       if (response.status == 200) {
         setStudentProfileData(response.data);
         console.log("student prodile data ==>", response.data);
+        localStorage.setItem("studentProfileData", response.data.name);
         // setTimeout(() => {
         //   getSingleGuideData(studentProfileData.guide);
         // }, 6000);
